@@ -1,0 +1,484 @@
+object MidiGriff: TMidiGriff
+  Left = 1222
+  Height = 457
+  Top = 573
+  Width = 548
+  Caption = 'MIDI Rekorder'
+  ClientHeight = 457
+  ClientWidth = 548
+  Color = clBtnFace
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  OnClose = FormClose
+  OnCloseQuery = FormCloseQuery
+  OnCreate = FormCreate
+  LCLVersion = '2.2.0.4'
+  object gbMIDI: TGroupBox
+    Left = 0
+    Height = 168
+    Top = 0
+    Width = 548
+    Align = alTop
+    Caption = 'MIDI'
+    ClientHeight = 150
+    ClientWidth = 544
+    TabOrder = 0
+    object Label17: TLabel
+      Left = 35
+      Height = 13
+      Top = 72
+      Width = 83
+      Caption = 'Synthesizer (out)'
+    end
+    object lblKeyboard: TLabel
+      Left = 35
+      Height = 13
+      Top = 34
+      Width = 69
+      Caption = 'Harmonica (in)'
+    end
+    object btnStart: TButton
+      Left = 415
+      Height = 25
+      Top = 66
+      Width = 114
+      Caption = 'Aufnahme starten'
+      OnClick = btnStartClick
+      TabOrder = 0
+    end
+    object cbxMidiInput: TComboBox
+      Left = 135
+      Height = 21
+      Top = 27
+      Width = 262
+      Anchors = [akTop, akLeft, akRight]
+      ItemHeight = 13
+      OnChange = cbxMidiInputChange
+      Style = csDropDownList
+      TabOrder = 1
+    end
+    object cbxMidiOut: TComboBox
+      Left = 135
+      Height = 21
+      Top = 65
+      Width = 262
+      Anchors = [akTop, akLeft, akRight]
+      ItemHeight = 13
+      OnChange = cbxMidiOutChange
+      Style = csDropDownList
+      TabOrder = 2
+    end
+    object sbMetronom1: TScrollBar
+      Left = 135
+      Height = 13
+      Top = 113
+      Width = 257
+      Anchors = [akTop, akLeft, akRight]
+      Max = 140
+      Min = 20
+      PageSize = 0
+      Position = 100
+      TabOrder = 3
+      OnChange = sbMetronomChange
+    end
+    object lbVolume: TLabel
+      Left = 35
+      Height = 13
+      Top = 115
+      Width = 42
+      Caption = 'lbVolume'
+    end
+  end
+  object gbHeader: TGroupBox
+    Left = 0
+    Height = 183
+    Top = 274
+    Width = 548
+    Align = alBottom
+    Caption = 'Taktangaben'
+    ClientHeight = 165
+    ClientWidth = 544
+    TabOrder = 1
+    object Label8: TLabel
+      Left = 35
+      Height = 13
+      Top = 19
+      Width = 21
+      Caption = 'Takt'
+    end
+    object Label12: TLabel
+      Left = 35
+      Height = 13
+      Top = 54
+      Width = 84
+      Caption = 'Viertel pro Minute'
+    end
+    object Label2: TLabel
+      Left = 35
+      Height = 13
+      Top = 104
+      Width = 48
+      Caption = 'Metronom'
+    end
+    object lbBegleitung: TLabel
+      Left = 35
+      Height = 13
+      Top = 84
+      Width = 51
+      Caption = 'Lautstärke'
+    end
+    object Label10: TLabel
+      Left = 35
+      Height = 13
+      Top = 124
+      Width = 41
+      Caption = 'Nur Takt'
+    end
+    object cbxViertel: TComboBox
+      Left = 211
+      Height = 21
+      Top = 13
+      Width = 70
+      ItemHeight = 13
+      ItemIndex = 0
+      Items.Strings = (
+        'Viertel'
+        'Achtel'
+      )
+      OnChange = cbxViertelChange
+      Style = csDropDownList
+      TabOrder = 1
+      Text = 'Viertel'
+    end
+    object cbxTakt: TComboBox
+      Left = 135
+      Height = 21
+      Top = 13
+      Width = 70
+      ItemHeight = 13
+      ItemIndex = 2
+      Items.Strings = (
+        '2'
+        '3'
+        '4'
+        '5'
+        '6'
+        '7'
+        '8'
+        '9'
+        '10'
+        '11'
+        '12'
+      )
+      OnChange = cbxTaktChange
+      Style = csDropDownList
+      TabOrder = 0
+      Text = '4'
+    end
+    object edtBPM: TEdit
+      Left = 135
+      Height = 21
+      Top = 43
+      Width = 70
+      Alignment = taRightJustify
+      OnExit = edtBPMExit
+      TabOrder = 2
+      Text = '60'
+    end
+    object cbxMetronom: TCheckBox
+      Left = 135
+      Height = 19
+      Top = 102
+      Width = 20
+      OnClick = cbxMetronomClick
+      TabOrder = 4
+    end
+    object sbMetronom: TScrollBar
+      Left = 135
+      Height = 13
+      Top = 82
+      Width = 262
+      Anchors = [akTop, akLeft, akRight]
+      Max = 120
+      Min = 20
+      PageSize = 0
+      Position = 80
+      TabOrder = 3
+      OnChange = sbMetronomChange
+    end
+    object cbxNurTakt: TCheckBox
+      Left = 135
+      Height = 19
+      Top = 123
+      Width = 20
+      OnClick = cbxNurTaktClick
+      TabOrder = 5
+    end
+  end
+  object gbMidiInstrument: TGroupBox
+    Left = 0
+    Height = 106
+    Top = 168
+    Width = 548
+    Align = alClient
+    Caption = 'MIDI Instrument'
+    ClientHeight = 88
+    ClientWidth = 544
+    TabOrder = 2
+    object Label3: TLabel
+      Left = 35
+      Height = 13
+      Top = 52
+      Width = 79
+      Caption = 'MIDI Instrument'
+    end
+    object Label4: TLabel
+      Left = 35
+      Height = 13
+      Top = 15
+      Width = 23
+      Caption = 'Bank'
+    end
+    object cbxMidiDiskant: TComboBox
+      Left = 135
+      Height = 21
+      Top = 49
+      Width = 264
+      ItemHeight = 13
+      ItemIndex = 21
+      Items.Strings = (
+        '1 Acoustic Grand Piano (Flügel)'
+        '2 Bright Acoustic Piano (Klavier)'
+        '3 Electric Grand Piano'
+        '4 Honky-tonk'
+        '5 Electric Piano 1 (Rhodes)'
+        '6 Electric Piano 2 (Chorus)'
+        '7 Harpsichord (Cembalo)'
+        '8 Clavi (Clavinet)'
+        '9 Celesta'
+        '10 Glockenspiel'
+        '11 Music Box (Spieluhr)'
+        '12 Vibraphone'
+        '13 Marimba'
+        '14 Xylophone'
+        '15 Tubular Bells (Röhrenglocken)'
+        '16 Dulcimer (Hackbrett)'
+        '17 Drawbar Organ (Hammond)'
+        '18 Percussive Organ'
+        '19 Rock Organ'
+        '20 Church Organ (Kirchenorgel)'
+        '21 Reed Organ (Drehorgel)'
+        '22 Accordion'
+        '23 Harmonica'
+        '24 Tango Accordion (Bandeon)'
+        '25 Acoustic Guitar (Nylon)'
+        '26 Acoustic Guitar (Steel - Stahl)'
+        '27 Electric Guitar (Jazz)'
+        '28 Electric Guitar (clean - sauber)'
+        '29 Electric Guitar (muted - gedämpft)'
+        '30 Overdriven Guitar (übersteuert)'
+        '31 Distortion Guitar (verzerrt)'
+        '32 Guitar harmonics (Harmonien)'
+        '33 Acoustic Bass'
+        '34 Electric Bass (finger)'
+        '35 Electric Bass (pick - gezupft)'
+        '36 Fretless Bass (bundloser Bass)'
+        '37 Slap Bass 1'
+        '38 Slap Bass 2'
+        '39 Synth Bass 1'
+        '40 Synth Bass 2'
+        '41 Violin (Violine - Geige)'
+        '42 Viola (Viola - Bratsche)'
+        '43 Cello (Violoncello - Cello)'
+        '44 Contrabass (Violone - Kontrabass)'
+        '45 Tremolo Strings'
+        '46 Pizzicato Strings'
+        '47 Orchestral Harp (Harfe)'
+        '48 Timpani (Pauke)'
+        '49 String Ensemble 1'
+        '50 String Ensemble 2'
+        '51 SynthString 1'
+        '52 SynthString 2'
+        '53 Choir Aahs'
+        '54 Voice Oohs'
+        '55 Synth Voice'
+        '56 Orchestra Hit'
+        '57 Trumpet (Trompete)'
+        '58 Trombone (Posaune)'
+        '59 Tuba'
+        '60 Muted Trumpet (gedämpfe Trompete)'
+        '61 French Horn (französisches Horn)'
+        '62 Brass Section (Bläsersatz)'
+        '63 SynthBrass 1'
+        '64 SynthBrass 2'
+        '65 Soprano Sax'
+        '66 Alto Sax'
+        '67 Tenor Sax'
+        '68 Baritone Sax'
+        '69 Oboe'
+        '70 English Horn'
+        '71 Bassoon (Fagott)'
+        '72 Clarinet'
+        '73 Piccolo'
+        '74 Flute (Flöte)'
+        '75 Recorder (Blockflöte)'
+        '76 Pan Flute'
+        '77 Blown Bottle'
+        '78 Shakuhachi'
+        '79 Whistle (Pfeifen)'
+        '80 Ocarina'
+        '81 Square (Rechteck)'
+        '82 Sawtooth (Sägezahn)'
+        '83 Calliop'
+        '84 Chiff'
+        '85 Charang'
+        '86 Voice'
+        '87 Fifths'
+        '88 Bass + Lead'
+        '89 New Age'
+        '90 Warm'
+        '91 Polysynth'
+        '92 Choir'
+        '93 Bowed (Streicher)'
+        '94 Metallic'
+        '95 Halo'
+        '96 Sweep'
+        '97 Rain (Regen)'
+        '98 Soundtrack'
+        '99 Crystal'
+        '100 Atmosphere'
+        '101 Brightness'
+        '102 Goblins'
+        '103 Echoes'
+        '104 Sci-Fi (Science Fiction)'
+        '105 Sitar Ethnik'
+        '106 Banjo'
+        '107 Shamisen'
+        '108 Koto'
+        '109 Kalimba'
+        '110 Bag Pipe (Dudelsack)'
+        '111 Fiddle'
+        '112 Shanai'
+        '113 Tinkle Bell (Glocke)'
+        '114 Agogo'
+        '115 Steel Drums'
+        '116 Woodblock'
+        '117 Taiko Drum'
+        '118 Melodic Tom'
+        '119 Synth Drum'
+        '120 Reverse Cymbal (Becken rückwärts)'
+        '121 Guitar Fret. Noise (Gitarrensaitenquitschen)'
+        '122 Breath Noise (Atem)'
+        '123 Seashore (Meeresbrandung)'
+        '124 Bird Tweet (Vogelgezwitscher)'
+        '125 Telephone Ring'
+        '126 Helicopter'
+        '127 Applause'
+        '128 Gun Shot (Gewehrschuss)'
+      )
+      OnChange = cbxDiskantBankChange
+      Style = csDropDownList
+      TabOrder = 0
+      Text = '22 Accordion'
+    end
+    object cbxDiskantBank: TComboBox
+      Left = 135
+      Height = 21
+      Top = 14
+      Width = 264
+      ItemHeight = 13
+      ItemIndex = 0
+      Items.Strings = (
+        '00 - General Midi'
+        '01 - Piano'
+        '02 - E-Piano'
+        '03 - Organ'
+        '04 - Organ - Drawbar Registrations'
+        '05 - Perc. Tuned Instr.'
+        '06 - String Instr.'
+        '07 - Guitar'
+        '08 - Harmonica and more'
+        '09 - Full Strings & Disco Strings'
+        '10 - Solo Strings'
+        '11 - Synth Strings'
+        '12 - Brass Solo'
+        '13 - Brass Section'
+        '14 - Classic Brass'
+        '15 - Saxophon'
+        '16 - Winds'
+        '17 - Classic Winds'
+        '18 - Choir'
+        '19 - Bass'
+        '20 - Synthesizer'
+        '21 - FX und Percussion'
+        '22'
+        '23'
+        '24'
+        '25'
+        '26'
+        '27'
+        '28'
+        '29'
+        '30'
+        '31'
+        '32'
+        '33'
+        '34'
+        '35'
+        '36'
+        '37'
+        '38'
+        '39'
+        '40 - Accordion French, German, Slvenia and others'
+        '41 - Bass and Chord Melo.'
+        '42 - Cordovox'
+        '43'
+        '44'
+        '45'
+        '46'
+        '47'
+        '48'
+        '49'
+        '50'
+        '51'
+        '52'
+        '53'
+        '54'
+        '55'
+        '56'
+        '57'
+        '58'
+        '59'
+        '60'
+        '61'
+        '62'
+        '63'
+        '64'
+        '65'
+        '66'
+        '67'
+        '68'
+        '69'
+        '70'
+      )
+      OnChange = cbxDiskantBankChange
+      Style = csDropDownList
+      TabOrder = 1
+      Text = '00 - General Midi'
+    end
+  end
+  object SaveDialog1: TSaveDialog
+    FileName = 'Recorded.mid'
+    Filter = 'MIDI|*.mid'
+    InitialDir = '.'
+    Left = 480
+    Top = 24
+  end
+  object Timer1: TTimer
+    Interval = 1
+    OnTimer = Timer1Timer
+    Left = 416
+    Top = 16
+  end
+end
