@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <ProjectSession>
+    <Version Value="12"/>
+    <BuildModes Active="Default"/>
+    <Units>
+      <Unit>
+        <Filename Value="MidiRekorder.dpr"/>
+        <IsPartOfProject Value="True"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="11"/>
+        <CursorPos X="36" Y="31"/>
+        <UsageCount Value="107"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="umidirekorder.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="MidiGriff"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <EditorIndex Value="4"/>
+        <TopLine Value="386"/>
+        <CursorPos X="43" Y="23"/>
+        <UsageCount Value="107"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="UMidiDataStream.pas"/>
+        <IsPartOfProject Value="True"/>
+        <EditorIndex Value="3"/>
+        <TopLine Value="1252"/>
+        <CursorPos X="68" Y="1269"/>
+        <UsageCount Value="107"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="UEventArray.pas"/>
+        <IsPartOfProject Value="True"/>
+        <EditorIndex Value="5"/>
+        <UsageCount Value="107"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="UVirtual.pas"/>
+        <IsPartOfProject Value="True"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="9"/>
+        <CursorPos X="5" Y="22"/>
+        <UsageCount Value="107"/>
+      </Unit>
+      <Unit>
+        <Filename Value="UMidiEvent.pas"/>
+        <IsPartOfProject Value="True"/>
+        <EditorIndex Value="-1"/>
+        <WindowIndex Value="-1"/>
+        <TopLine Value="-1"/>
+        <CursorPos X="-1" Y="-1"/>
+        <UsageCount Value="107"/>
+      </Unit>
+      <Unit>
+        <Filename Value="UMyMemoryStream.pas"/>
+        <IsPartOfProject Value="True"/>
+        <EditorIndex Value="-1"/>
+        <WindowIndex Value="-1"/>
+        <TopLine Value="-1"/>
+        <CursorPos X="-1" Y="-1"/>
+        <UsageCount Value="107"/>
+      </Unit>
+      <Unit>
+        <Filename Value="UMyMidiStream.pas"/>
+        <IsPartOfProject Value="True"/>
+        <EditorIndex Value="2"/>
+        <UsageCount Value="107"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="urtmidi.pas"/>
+        <IsPartOfProject Value="True"/>
+        <IsVisibleTab Value="True"/>
+        <TopLine Value="401"/>
+        <CursorPos X="88" Y="453"/>
+        <UsageCount Value="105"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="UMidiSaveStream.pas"/>
+        <IsPartOfProject Value="True"/>
+        <EditorIndex Value="-1"/>
+        <WindowIndex Value="-1"/>
+        <TopLine Value="-1"/>
+        <CursorPos X="-1" Y="-1"/>
+        <UsageCount Value="68"/>
+      </Unit>
+      <Unit>
+        <Filename Value="ubanks.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="UBanks"/>
+        <EditorIndex Value="6"/>
+        <TopLine Value="1790"/>
+        <CursorPos X="57" Y="1803"/>
+        <UsageCount Value="62"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="Midi.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="241"/>
+        <CursorPos X="19" Y="251"/>
+        <UsageCount Value="3"/>
+      </Unit>
+      <Unit>
+        <Filename Value="teVirtual/teVirtualMIDIdll.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="19"/>
+        <CursorPos X="6" Y="22"/>
+        <UsageCount Value="13"/>
+      </Unit>
+      <Unit>
+        <Filename Value="rtmidi_c.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="68"/>
+        <CursorPos X="42" Y="76"/>
+        <UsageCount Value="3"/>
+      </Unit>
+      <Unit>
+        <Filename Value="../Virtuelle-Steirische-Harmonika-main/UVirtualHarmonica.pas"/>
+        <ComponentName Value="frmVirtualHarmonica"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="54" Y="15"/>
+        <UsageCount Value="7"/>
+      </Unit>
+      <Unit>
+        <Filename Value="../Virtuelle-Steirische-Harmonika-main/UVirtualHarmonica.dfm"/>
+        <EditorIndex Value="-1"/>
+        <UsageCount Value="7"/>
+        <DefaultSyntaxHighlighter Value="LFM"/>
+      </Unit>
+      <Unit>
+        <Filename Value="c:/Lazarus/lcl/include/lclintf.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="340"/>
+        <CursorPos Y="361"/>
+        <UsageCount Value="10"/>
+      </Unit>
+    </Units>
+    <JumpHistory HistoryIndex="29">
+      <Position>
+        <Filename Value="urtmidi.pas"/>
+        <Caret Line="411" Column="24" TopLine="387"/>
+      </Position>
+      <Position>
+        <Filename Value="urtmidi.pas"/>
+        <Caret Line="396" Column="3" TopLine="366"/>
+      </Position>
+      <Position>
+        <Filename Value="urtmidi.pas"/>
+        <Caret Line="409" TopLine="381"/>
+      </Position>
+      <Position>
+        <Filename Value="urtmidi.pas"/>
+        <Caret Line="412" TopLine="381"/>
+      </Position>
+      <Position>
+        <Filename Value="urtmidi.pas"/>
+        <Caret Line="413" TopLine="381"/>
+      </Position>
+      <Position>
+        <Filename Value="urtmidi.pas"/>
+        <Caret Line="430" Column="115" TopLine="405"/>
+      </Position>
+      <Position>
+        <Filename Value="urtmidi.pas"/>
+        <Caret Line="409" TopLine="401"/>
+      </Position>
+      <Position>
+        <Filename Value="urtmidi.pas"/>
+        <Caret Line="412" TopLine="401"/>
+      </Position>
+      <Position>
+        <Filename Value="urtmidi.pas"/>
+        <Caret Line="413" TopLine="401"/>
+      </Position>
+      <Position>
+        <Filename Value="urtmidi.pas"/>
+        <Caret Line="390" Column="25" TopLine="386"/>
+      </Position>
+      <Position>
+        <Filename Value="urtmidi.pas"/>
+        <Caret Line="409" TopLine="386"/>
+      </Position>
+      <Position>
+        <Filename Value="urtmidi.pas"/>
+        <Caret Line="412" TopLine="386"/>
+      </Position>
+      <Position>
+        <Filename Value="urtmidi.pas"/>
+        <Caret Line="413" TopLine="386"/>
+      </Position>
+      <Position>
+        <Filename Value="urtmidi.pas"/>
+        <Caret Line="419" TopLine="386"/>
+      </Position>
+      <Position>
+        <Filename Value="urtmidi.pas"/>
+        <Caret Line="420" TopLine="386"/>
+      </Position>
+      <Position>
+        <Filename Value="urtmidi.pas"/>
+        <Caret Line="447" Column="26" TopLine="405"/>
+      </Position>
+      <Position>
+        <Filename Value="urtmidi.pas"/>
+        <Caret Line="409" TopLine="401"/>
+      </Position>
+      <Position>
+        <Filename Value="urtmidi.pas"/>
+        <Caret Line="447" Column="28" TopLine="402"/>
+      </Position>
+      <Position>
+        <Filename Value="urtmidi.pas"/>
+        <Caret Line="449" TopLine="404"/>
+      </Position>
+      <Position>
+        <Filename Value="urtmidi.pas"/>
+        <Caret Line="450" TopLine="405"/>
+      </Position>
+      <Position>
+        <Filename Value="urtmidi.pas"/>
+        <Caret Line="451" TopLine="405"/>
+      </Position>
+      <Position>
+        <Filename Value="urtmidi.pas"/>
+        <Caret Line="453" TopLine="405"/>
+      </Position>
+      <Position>
+        <Filename Value="urtmidi.pas"/>
+        <Caret Line="421" Column="107" TopLine="405"/>
+      </Position>
+      <Position>
+        <Filename Value="urtmidi.pas"/>
+        <Caret Line="409" TopLine="401"/>
+      </Position>
+      <Position>
+        <Filename Value="urtmidi.pas"/>
+        <Caret Line="425" Column="73" TopLine="402"/>
+      </Position>
+      <Position>
+        <Filename Value="urtmidi.pas"/>
+        <Caret Line="449" TopLine="404"/>
+      </Position>
+      <Position>
+        <Filename Value="urtmidi.pas"/>
+        <Caret Line="450" TopLine="405"/>
+      </Position>
+      <Position>
+        <Filename Value="urtmidi.pas"/>
+        <Caret Line="451" TopLine="405"/>
+      </Position>
+      <Position>
+        <Filename Value="urtmidi.pas"/>
+        <Caret Line="432" Column="56" TopLine="405"/>
+      </Position>
+      <Position>
+        <Filename Value="urtmidi.pas"/>
+        <Caret Line="424" Column="96" TopLine="405"/>
+      </Position>
+    </JumpHistory>
+    <RunParams>
+      <FormatVersion Value="2"/>
+      <Modes ActiveMode=""/>
+    </RunParams>
+  </ProjectSession>
+  <Debugging>
+    <Watches>
+      <Item>
+        <Expression Value="Bank"/>
+      </Item>
+    </Watches>
+  </Debugging>
+</CONFIG>
