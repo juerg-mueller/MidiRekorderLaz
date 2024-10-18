@@ -10,6 +10,7 @@ object MidiGriff: TMidiGriff
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
+  Position = poDesktopCenter
   OnClose = FormClose
   OnCloseQuery = FormCloseQuery
   OnCreate = FormCreate
@@ -38,7 +39,7 @@ object MidiGriff: TMidiGriff
       Top = 34
       Width = 69
       Height = 13
-      Caption = 'Harmonica (in)'
+      Caption = 'Harmonika (in)'
     end
     object lbVolume: TLabel
       Left = 35
@@ -115,7 +116,7 @@ object MidiGriff: TMidiGriff
     end
     object Label12: TLabel
       Left = 35
-      Top = 54
+      Top = 46
       Width = 84
       Height = 13
       Caption = 'Viertel pro Minute'
@@ -129,14 +130,14 @@ object MidiGriff: TMidiGriff
     end
     object lbBegleitung: TLabel
       Left = 35
-      Top = 84
+      Top = 82
       Width = 51
       Height = 13
       Caption = 'Lautst'#228'rke'
     end
     object Label10: TLabel
       Left = 35
-      Top = 124
+      Top = 125
       Width = 41
       Height = 13
       Caption = 'Nur Takt'
@@ -180,12 +181,12 @@ object MidiGriff: TMidiGriff
     end
     object edtBPM: TEdit
       Left = 135
-      Top = 43
+      Top = 40
       Width = 70
       Height = 21
       Alignment = taRightJustify
       TabOrder = 2
-      Text = '60'
+      Text = '120'
       OnExit = edtBPMExit
     end
     object cbxMetronom: TCheckBox
@@ -385,7 +386,7 @@ object MidiGriff: TMidiGriff
     end
     object cbxDiskantBank: TComboBox
       Left = 135
-      Top = 14
+      Top = 6
       Width = 264
       Height = 21
       Style = csDropDownList

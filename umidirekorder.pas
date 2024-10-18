@@ -63,7 +63,7 @@ type
     nextPip: TTime;
     pipDelay: TTime;
 
-    procedure OnMidiInData_(Status, Data1, Data2: byte; Timestamp: double);
+    procedure OnMidiInData_(Status, Data1, Data2: byte; Timestamp: integer);
     procedure CopyArray(cbx: TComboBox; var Bank: TArrayOfString);
   {$ifndef FPC}
     procedure OnMidiInData(Status, Data1, Data2: byte; Timestamp: integer);
@@ -90,8 +90,6 @@ const
   strStop  = 'Aufnahme beenden';
 var
   MidiRec: TMidiRecord;
-  pipFirst: byte = 59;
-  pipSecond: byte = 69;
   pipLast: byte = 0;
   pipChannel: byte = 9;
   VolumeDiscant: double = 0.9;
@@ -112,6 +110,8 @@ begin
 {$ifdef CONSOLE}
   writeln(Status, '  ', Data1, '  ', Data2);
 {$endif}
+  if InRecord then
+    MidiRec.OnMidiInData(Status, Data1, Data2, Timestamp);
   MidiOutput.Send(Status, Data1, Data2);
 end;
 {$endif}
@@ -169,7 +169,7 @@ begin
   end;
 end;
 
-procedure TMidiGriff.Timer1Timer(Sender: TObject);
+procedure TMidiGriff.Timer1Timer(Sender: TObject);  // Timer für Metronom
 var
   Event: TMouseEvent;
   Key: word;
@@ -177,14 +177,23 @@ var
   sec: boolean;
   pip: byte;
   vol: double;
+  Time: TDateTime;
+
   procedure SendMidiOut(Status, Data1, Data2: byte);
   begin
     Status := Status + pipChannel;
     OnMidiInData_(Status, Data1, Data2, 0);
   end;
+
 begin
   if Metronom then
   begin
+    Time := now;
+    if nextPip = 0 then begin
+      nextPip := Time;
+      pipDelay := Time + 1/(24.0*60.0)/BPM;
+      pipCount := 0;
+    end;
     BPM := Header.beatsPerMin;
     mDiv := Header.measureDiv; // ist 4 oder 8
     if NurTakt then
@@ -202,7 +211,7 @@ begin
     else
     if sec then
       pip := pipSecond;
-    if Now >= nextPip then
+    if Time >= nextPip then
     begin
       vol := 100*VolumeMetronom;
       if vol > 126 then
@@ -210,27 +219,18 @@ begin
       if pip > 0 then
       begin
         SendMidiOut($90, pip, trunc(vol));
-        pipLast := pip;
-        if pipCount = 0 then
-        begin
-       //   pipPaint(true);
-        end;
       end;
-      nextPip := Now + 1/(24.0*60.0)/BPM;
-      pipDelay := Now + 0.1/(24*3600);
+      pipDelay := Time + 1/(24*60.0)/BPM/4;
+      nextPip := nextPip + 1/(24.0*60.0)/BPM;
+      pipLast := pip;
     end else
-    if (Now >= pipDelay) and (pipDelay > 0) then
+    if (Time >= pipDelay) and (pipDelay > 0) then
     begin
       pipDelay := 0;
-      if pip > 0 then
+      if pipLast > 0 then
       begin
-        if pip > 0 then
-          SendMidiOut($80, pip, 64);
+        SendMidiOut($80, pipLast, 64);
         pipLast := 0;
-        if pipCount = 0 then
-        begin
-          //pipPaint(false);
-        end;
       end;
       inc(pipCount);
       if pipCount >= Header.measureFact then
@@ -247,9 +247,9 @@ begin
   begin
     InRecord := false;
     btnStart.Caption := strStart;
-    for j := 1 to 7 do
+    for j := 0 to 9 do
       MidiOutput.Send($B0 + j, 120, 0);
-    MidiOutput.CloseAll;
+//    MidiOutput.CloseAll;
     SaveMidi;
     FreeAndNil(MidiRec);
   end else
@@ -260,7 +260,7 @@ begin
     MidiRec := TMidiRecord.Create(Header);
     InRecord := true;
     for i := 0 to 7 do
-    OnMidiInData_($C0 + i, 21, 0, 0);
+      OnMidiInData_($C0 + i, 21, 0, 0);
     btnStart.Caption := strStop;
   end;
 end;
@@ -271,6 +271,7 @@ begin
   if (not Metronom) and (pipLast <> 0) then
     OnMidiInData_($80 + pipChannel, pipLast, 64, 0);
   pipLast := 0;
+  nextPip := 0;
 end;
 
 procedure TMidiGriff.cbxMidiInputChange(Sender: TObject);
@@ -419,16 +420,18 @@ begin
   cbxMidiInput.ItemIndex := 0;
   Header.Clear;
   btnStart.Caption := strStart;
+  edtBPMExit(nil);
   sbMetronomChange(sbMetronom);
   sbMetronomChange(sbMetronom1);
   CopyBank(Bank, @bank_list);
   CopyArray(cbxDiskantBank, Bank);
 end;
 
-procedure TMidiGriff.OnMidiInData_(Status, Data1, Data2: byte; Timestamp: double);
+// Für Metronom
+procedure TMidiGriff.OnMidiInData_(Status, Data1, Data2: byte; Timestamp: integer);
 begin
   if InRecord then
-    MidiRec.OnMidiInData(Status, Data1, Data2);
+    MidiRec.OnMidiInData(Status, Data1, Data2, Timestamp);
 {$ifdef CONSOLE}
 //  writeln('$', IntToHex(Status), '  ', Data1, '  ', Data2);
 {$endif}

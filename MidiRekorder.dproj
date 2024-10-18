@@ -3,7 +3,7 @@
         <ProjectGuid>{1A4D085D-DEAD-406E-82F8-0E89A6B7B4B1}</ProjectGuid>
         <MainSource>MidiRekorder.dpr</MainSource>
         <Base>True</Base>
-        <Config Condition="'$(Config)'==''">Debug</Config>
+        <Config Condition="'$(Config)'==''">Release</Config>
         <TargetedPlatforms>3</TargetedPlatforms>
         <AppType>Application</AppType>
         <FrameworkType>VCL</FrameworkType>
@@ -120,6 +120,9 @@
         <DCC_ShowGeneralMessages>true</DCC_ShowGeneralMessages>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <VerInfo_Keys>CompanyName=;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
+        <DCC_ConsoleTarget>true</DCC_ConsoleTarget>
+        <DCC_DcuOutput>./obj</DCC_DcuOutput>
+        <DCC_ExeOutput>.</DCC_ExeOutput>
     </PropertyGroup>
     <ItemGroup>
         <DelphiCompile Include="$(MainSource)">

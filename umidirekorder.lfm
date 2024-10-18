@@ -13,7 +13,8 @@ object MidiGriff: TMidiGriff
   OnClose = FormClose
   OnCloseQuery = FormCloseQuery
   OnCreate = FormCreate
-  LCLVersion = '2.2.0.4'
+  Position = poDesktopCenter
+  LCLVersion = '2.2.6.0'
   object gbMIDI: TGroupBox
     Left = 0
     Height = 168
@@ -21,22 +22,24 @@ object MidiGriff: TMidiGriff
     Width = 548
     Align = alTop
     Caption = 'MIDI'
-    ClientHeight = 150
-    ClientWidth = 544
+    ClientHeight = 151
+    ClientWidth = 546
     TabOrder = 0
     object Label17: TLabel
       Left = 35
-      Height = 13
+      Height = 16
       Top = 72
-      Width = 83
+      Width = 87
       Caption = 'Synthesizer (out)'
+      ParentColor = False
     end
     object lblKeyboard: TLabel
       Left = 35
-      Height = 13
+      Height = 16
       Top = 34
-      Width = 69
-      Caption = 'Harmonica (in)'
+      Width = 77
+      Caption = 'Harmonika (in)'
+      ParentColor = False
     end
     object btnStart: TButton
       Left = 415
@@ -49,31 +52,31 @@ object MidiGriff: TMidiGriff
     end
     object cbxMidiInput: TComboBox
       Left = 135
-      Height = 21
+      Height = 32
       Top = 27
-      Width = 262
+      Width = 264
       Anchors = [akTop, akLeft, akRight]
-      ItemHeight = 13
+      ItemHeight = 0
       OnChange = cbxMidiInputChange
       Style = csDropDownList
       TabOrder = 1
     end
     object cbxMidiOut: TComboBox
       Left = 135
-      Height = 21
+      Height = 32
       Top = 65
-      Width = 262
+      Width = 264
       Anchors = [akTop, akLeft, akRight]
-      ItemHeight = 13
+      ItemHeight = 0
       OnChange = cbxMidiOutChange
       Style = csDropDownList
       TabOrder = 2
     end
     object sbMetronom1: TScrollBar
       Left = 135
-      Height = 13
+      Height = 20
       Top = 113
-      Width = 257
+      Width = 259
       Anchors = [akTop, akLeft, akRight]
       Max = 140
       Min = 20
@@ -84,10 +87,11 @@ object MidiGriff: TMidiGriff
     end
     object lbVolume: TLabel
       Left = 35
-      Height = 13
+      Height = 16
       Top = 115
-      Width = 42
+      Width = 49
       Caption = 'lbVolume'
+      ParentColor = False
     end
   end
   object gbHeader: TGroupBox
@@ -97,50 +101,55 @@ object MidiGriff: TMidiGriff
     Width = 548
     Align = alBottom
     Caption = 'Taktangaben'
-    ClientHeight = 165
-    ClientWidth = 544
+    ClientHeight = 166
+    ClientWidth = 546
     TabOrder = 1
     object Label8: TLabel
       Left = 35
-      Height = 13
+      Height = 16
       Top = 19
       Width = 21
       Caption = 'Takt'
+      ParentColor = False
     end
     object Label12: TLabel
       Left = 35
-      Height = 13
+      Height = 16
       Top = 54
-      Width = 84
+      Width = 95
       Caption = 'Viertel pro Minute'
+      ParentColor = False
     end
     object Label2: TLabel
       Left = 35
-      Height = 13
+      Height = 16
       Top = 104
-      Width = 48
+      Width = 55
       Caption = 'Metronom'
+      ParentColor = False
     end
     object lbBegleitung: TLabel
       Left = 35
-      Height = 13
+      Height = 16
       Top = 84
-      Width = 51
+      Width = 55
       Caption = 'Lautstärke'
+      ParentColor = False
     end
     object Label10: TLabel
       Left = 35
-      Height = 13
+      Height = 16
       Top = 124
-      Width = 41
+      Width = 44
       Caption = 'Nur Takt'
+      ParentColor = False
     end
     object cbxViertel: TComboBox
       Left = 211
-      Height = 21
+      Height = 28
       Top = 13
       Width = 70
-      ItemHeight = 13
+      ItemHeight = 0
       ItemIndex = 0
       Items.Strings = (
         'Viertel'
@@ -153,10 +162,10 @@ object MidiGriff: TMidiGriff
     end
     object cbxTakt: TComboBox
       Left = 135
-      Height = 21
+      Height = 28
       Top = 13
       Width = 70
-      ItemHeight = 13
+      ItemHeight = 0
       ItemIndex = 2
       Items.Strings = (
         '2'
@@ -178,7 +187,7 @@ object MidiGriff: TMidiGriff
     end
     object edtBPM: TEdit
       Left = 135
-      Height = 21
+      Height = 28
       Top = 43
       Width = 70
       Alignment = taRightJustify
@@ -188,17 +197,17 @@ object MidiGriff: TMidiGriff
     end
     object cbxMetronom: TCheckBox
       Left = 135
-      Height = 19
+      Height = 21
       Top = 102
-      Width = 20
+      Width = 21
       OnClick = cbxMetronomClick
       TabOrder = 4
     end
     object sbMetronom: TScrollBar
       Left = 135
-      Height = 13
+      Height = 20
       Top = 82
-      Width = 262
+      Width = 264
       Anchors = [akTop, akLeft, akRight]
       Max = 120
       Min = 20
@@ -209,9 +218,9 @@ object MidiGriff: TMidiGriff
     end
     object cbxNurTakt: TCheckBox
       Left = 135
-      Height = 19
+      Height = 21
       Top = 123
-      Width = 20
+      Width = 21
       OnClick = cbxNurTaktClick
       TabOrder = 5
     end
@@ -223,29 +232,31 @@ object MidiGriff: TMidiGriff
     Width = 548
     Align = alClient
     Caption = 'MIDI Instrument'
-    ClientHeight = 88
-    ClientWidth = 544
+    ClientHeight = 89
+    ClientWidth = 546
     TabOrder = 2
     object Label3: TLabel
       Left = 35
-      Height = 13
+      Height = 16
       Top = 52
-      Width = 79
+      Width = 88
       Caption = 'MIDI Instrument'
+      ParentColor = False
     end
     object Label4: TLabel
       Left = 35
-      Height = 13
+      Height = 16
       Top = 15
-      Width = 23
+      Width = 26
       Caption = 'Bank'
+      ParentColor = False
     end
     object cbxMidiDiskant: TComboBox
       Left = 135
-      Height = 21
+      Height = 28
       Top = 49
       Width = 264
-      ItemHeight = 13
+      ItemHeight = 0
       ItemIndex = 21
       Items.Strings = (
         '1 Acoustic Grand Piano (Flügel)'
@@ -384,10 +395,10 @@ object MidiGriff: TMidiGriff
     end
     object cbxDiskantBank: TComboBox
       Left = 135
-      Height = 21
+      Height = 28
       Top = 14
       Width = 264
-      ItemHeight = 13
+      ItemHeight = 0
       ItemIndex = 0
       Items.Strings = (
         '00 - General Midi'

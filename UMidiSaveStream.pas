@@ -37,12 +37,13 @@ type
     eventCount: integer;
     MidiEvents: array of TMidiEvent;
     hasOns: boolean;
-    OldTime: TTime;
+    OldTime: double;
     Header: TDetailHeader;
 
     constructor Create(const Head: TDetailHeader);
     destructor Destroy; override;
-    procedure OnMidiInData(Status, Data1, Data2: byte);
+    procedure OnMidiInData(Status, Data1, Data2: byte; Timestamp: integer);
+    function DeleteBends: boolean;
   end;
 
   TMidiSaveStream = class(TMidiDataStream)   //(TMyMidiStream)
@@ -60,7 +61,32 @@ type
       class function BuildSaveStream(var MidiRec: TMidiRecord): TMidiSaveStream;
   end;
 
+var
+  pipFirst: byte = 36; //59;
+  pipSecond: byte = 50; //69;
+
 implementation
+
+function TMidiRecord.DeleteBends: boolean;
+var i, k: integer;
+begin
+  result := false;
+  i := 0;
+  k := 0;
+  while i < eventCount do
+  begin
+    if (MidiEvents[i].command = $E0) and (MidiEvents[i].var_len = 0) then
+      result := true
+    else begin
+      if i <> k then
+        MidiEvents[k] := MidiEvents[i];
+      inc(k);
+    end;
+    inc(i);
+  end;
+  if result then
+    eventCount := k;
+end;
 
 constructor TMidiRecord.Create(const Head: TDetailHeader);
 begin
@@ -68,7 +94,7 @@ begin
   eventCount := 0;
   SetLength(MidiEvents, 1000000);
   hasOns := false;
-  OldTime := 0;
+  OldTime := -1;
   Header := Head;
 end;
 
@@ -78,10 +104,11 @@ begin
   CriticalMidiIn.Free;
 end;
 
-procedure TMidiRecord.OnMidiInData(Status, Data1, Data2: byte);
+procedure TMidiRecord.OnMidiInData(Status, Data1, Data2: byte; Timestamp: integer);
 var
   Event: TMidiEvent;
   time, delta: TDateTime;
+  Ticks: integer;
 begin
   CriticalMidiIn.Acquire;
   try
@@ -99,9 +126,11 @@ begin
     Event.d2 := Data2;
     MidiEvents[eventCount] := Event;
     delta := 24*3600000.0*(time - OldTime); // ms
-    OldTime := time;
+    Ticks := Header.MsDelayToTicks(delta);
     if eventCount > 0 then
-      MidiEvents[eventCount-1].var_len := Header.MsDelayToTicks(round(delta));
+      MidiEvents[eventCount-1].var_len := Ticks;
+    delta := Header.TicksToMs(Ticks)/(24*3600000.0);
+    OldTime := OldTime + delta;
     inc(eventCount);
   finally
     CriticalMidiIn.Release;
@@ -208,7 +237,7 @@ end;
 
 class function TMidiSaveStream.BuildSaveStream(var MidiRec: TMidiRecord): TMidiSaveStream;
 var
-  i, newCount: integer;
+  i, k, j, newCount: integer;
   SaveStream: TMidiSaveStream;
   name: string;
   inpush, isEvent: boolean;
@@ -217,15 +246,45 @@ begin
   if not MidiRec.hasOns then
     exit;
 
+//  MidiRec.DeleteBends;
+
   // Stream bereinigen
+  k := 0;
   newCount := 0;
-  while (newCount < MidiRec.eventCount) and (MidiRec.MidiEvents[newCount].Event = 12) do
+  while (k < MidiRec.eventCount) do
+  begin
+    if // not (MidiRec.MidiEvents[k].Event in [8, 9]) or
+       (MidiRec.MidiEvents[k].Channel <> 9) or
+       (MidiRec.MidiEvents[k].d1 <> pipSecond) then       // Zwischentakte entfernen (pipSecond)
+    begin
+      if newCount <> k then
+        MidiRec.MidiEvents[newCount] := MidiRec.MidiEvents[k];
+      inc(newCount);
+    end else
+    if newCount > 0 then    
+      inc(MidiRec.MidiEvents[newCount-1].var_len, MidiRec.MidiEvents[k].var_len);
+    inc(k);
+  end;
+  if newCount < MidiRec.eventCount then
+    MidiRec.eventCount := newCount;
+
+  newCount := 0;
+  while (newCount < MidiRec.eventCount) and (MidiRec.MidiEvents[newCount].Event = 12) do  // Instrumente wählen
   begin
     MidiRec.MidiEvents[newCount].var_len := 0;
     inc(newCount);
   end;
 
   i := newCount;
+  k := i;
+  while (k < MidiRec.eventCount) and (MidiRec.MidiEvents[k].Event <> 9) do
+    inc(k);
+
+  if (k < MidiRec.eventCount) and (MidiRec.MidiEvents[k].Channel = 9) then begin
+    for j := newCount to k-1 do
+      MidiRec.MidiEvents[j].var_len := 0;
+  end;
+{
   while (i < MidiRec.eventCount-2) and
         MidiRec.MidiEvents[i].IsSustain and MidiRec.MidiEvents[i+1].IsSustain do
     inc(i);
@@ -233,8 +292,8 @@ begin
   while (i < MidiRec.eventCount) and MidiRec.MidiEvents[MidiRec.eventCount-1].IsSustain do
     dec(MidiRec.eventCount);
 
+
   inpush := true;
-  MidiRec.MidiEvents[i].var_len := 0;
   while i < MidiRec.eventCount do
   begin
     isEvent := MidiRec.MidiEvents[i].IsSustain;
@@ -245,11 +304,12 @@ begin
       MidiRec.MidiEvents[newCount] := MidiRec.MidiEvents[i];
       inc(newCount);
     end;
-{$ifdef CONSOLE}
+  {$ifdef CONSOLE}
    // writeln(newCount, '  ', MidiEvents[i].command, '  ', MidiEvents[i].d1, '  ', MidiEvents[i].d2);
-{$endif}
-    inc(i);
-  end;
+//  {$endif}
+//    inc(i);
+
+//  end;
 
   SaveStream := TMidiSaveStream.Create;
   try
@@ -260,7 +320,7 @@ begin
     SaveStream.AppendHeaderMetaEvents(MidiRec.Header);
     SaveStream.AppendTrackEnd(false);
     SaveStream.AppendTrackHead(0);
-    for i := 0 to newCount-1 do
+    for i := 0 to MidiRec.eventCount-1 do
       SaveStream.AppendEvent(MidiRec.MidiEvents[i]);
     SaveStream.AppendTrackEnd(true);
     result := SaveStream;

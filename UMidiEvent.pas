@@ -104,7 +104,7 @@ type
     procedure SetRaster(var rect: TRect);
     function GetTicks: double;
     function GetSmallestTicks: integer;
-    function MsDelayToTicks(MsDelay: integer): integer;
+    function MsDelayToTicks(MsDelay: double): integer;
     function TicksPerMeasure: integer;
     function TicksToMs(Ticks: integer): double;
     function TicksToString(Ticks: integer): string;
@@ -321,7 +321,7 @@ begin
   result := q;
 end;
 
-function TDetailHeader.MsDelayToTicks(MsDelay: integer): integer;
+function TDetailHeader.MsDelayToTicks(MsDelay: double): integer;
 begin
   result := round(MsDelay*DeltaTimeTicks*beatsPerMin / 60000.0); // MsDelay in ms
 end;
