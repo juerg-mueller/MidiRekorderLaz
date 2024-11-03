@@ -62,8 +62,8 @@ type
   end;
 
 var
-  pipFirst: byte = 36; //59;
-  pipSecond: byte = 50; //69;
+  pipFirst: byte = 76; //36; //59;
+  pipSecond: byte = 77; //50; //69;
 
 implementation
 
@@ -239,8 +239,6 @@ class function TMidiSaveStream.BuildSaveStream(var MidiRec: TMidiRecord): TMidiS
 var
   i, k, j, newCount: integer;
   SaveStream: TMidiSaveStream;
-  name: string;
-  inpush, isEvent: boolean;
 begin
   result := nil;
   if not MidiRec.hasOns then
