@@ -23,7 +23,6 @@ object MidiGriff: TMidiGriff
     Align = alTop
     Caption = 'MIDI'
     TabOrder = 0
-    ExplicitWidth = 532
     DesignSize = (
       536
       168)
@@ -66,7 +65,6 @@ object MidiGriff: TMidiGriff
       Anchors = [akLeft, akTop, akRight]
       TabOrder = 1
       OnChange = cbxMidiInputChange
-      ExplicitWidth = 262
     end
     object cbxMidiOut: TComboBox
       Left = 135
@@ -77,7 +75,6 @@ object MidiGriff: TMidiGriff
       Anchors = [akLeft, akTop, akRight]
       TabOrder = 2
       OnChange = cbxMidiOutChange
-      ExplicitWidth = 262
     end
     object sbMetronom1: TScrollBar
       Left = 135
@@ -91,7 +88,6 @@ object MidiGriff: TMidiGriff
       Position = 100
       TabOrder = 3
       OnChange = sbMetronomChange
-      ExplicitWidth = 257
     end
   end
   object gbHeader: TGroupBox
@@ -102,8 +98,6 @@ object MidiGriff: TMidiGriff
     Align = alBottom
     Caption = 'Taktangaben'
     TabOrder = 1
-    ExplicitTop = 260
-    ExplicitWidth = 532
     DesignSize = (
       536
       150)
@@ -209,7 +203,6 @@ object MidiGriff: TMidiGriff
       Position = 80
       TabOrder = 3
       OnChange = sbMetronomChange
-      ExplicitWidth = 262
     end
     object cbxNurTakt: TCheckBox
       Left = 135
@@ -228,8 +221,6 @@ object MidiGriff: TMidiGriff
     Align = alClient
     Caption = 'MIDI Instrument'
     TabOrder = 2
-    ExplicitWidth = 532
-    ExplicitHeight = 92
     object Label3: TLabel
       Left = 35
       Top = 52

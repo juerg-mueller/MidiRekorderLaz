@@ -62,8 +62,8 @@ type
   end;
 
 var
-  pipFirst: byte = 76; //36; //59;
-  pipSecond: byte = 77; //50; //69;
+  pipFirst: byte = 37;
+  pipSecond: byte = 69;
 
 implementation
 

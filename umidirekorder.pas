@@ -102,6 +102,11 @@ begin
   Status := Byte(message[0]);
   Data1  := Byte(message[1]);
   Data2  := Byte(message[2]);
+  if ((Status shr 4) = 9) and (Data2 = 0) then
+  begin
+    dec(Status, $10);
+    Data2 := 64;
+  end;
   MidiGriff.OnMidiInData_(Status, Data1, Data2, TimeStamp);
 end;
 {$else}
@@ -110,6 +115,11 @@ begin
 {$ifdef CONSOLE}
   writeln(Status, '  ', Data1, '  ', Data2);
 {$endif}
+  if ((Status shr 4) = 9) and (Data2 = 0) then
+  begin
+    dec(Status, $10);
+    Data2 := 64;
+  end;
   if InRecord then
     MidiRec.OnMidiInData(Status, Data1, Data2, Timestamp);
   MidiOutput.Send(Status, Data1, Data2);
