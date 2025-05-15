@@ -185,7 +185,10 @@ var
   MicrosoftIndex: integer = -1;
   MidiOutput: TMidiOutput;
   MidiInput: TMidiInput;
-  MidiInstr: byte = 21; // Akkordeon
+
+  MidiBankDiskant: byte = 0;
+  MidiInstrDiskant: byte = 21; // Akkordeon
+
 
 
 implementation
@@ -306,18 +309,26 @@ begin
   Sleep(5);
 end;
 
+procedure ChangeBank(Channel, Bank, Instr: byte);
+begin
+
+  MidiOutput.Send($b0 + Channel, 0, Bank);
+  MidiOutput.Send($c0 + Channel, Instr, 0);
+end;
+
 procedure OpenMidiMicrosoft;
 begin
   MidiOutput.Open(MicrosoftIndex);
   try
     MidiOutput.Reset;
-    MidiOutput.Send($c0, MidiInstr, $00);
-    MidiOutput.Send($c1, MidiInstr, $00);
-    MidiOutput.Send($c2, MidiInstr, $00);
-    MidiOutput.Send($c3, MidiInstr, $00);
-    MidiOutput.Send($c4, MidiInstr, $00);
-    MidiOutput.Send($c5, MidiInstr, $00);
-    MidiOutput.Send($c6, MidiInstr, $00);
+    ChangeBank(0, MidiBankDiskant, MidiInstrDiskant);
+    ChangeBank(1, MidiBankDiskant, MidiInstrDiskant);
+    ChangeBank(2, MidiBankDiskant, MidiInstrDiskant);
+    ChangeBank(3, MidiBankDiskant, MidiInstrDiskant);
+    ChangeBank(4, MidiBankDiskant, MidiInstrDiskant);
+    ChangeBank(5, MidiBankDiskant, MidiInstrDiskant);
+    ChangeBank(6, MidiBankDiskant, MidiInstrDiskant);
+    ChangeBank(7, MidiBankDiskant, MidiInstrDiskant);
   finally
   end;
 {$if defined(CONSOLE)}

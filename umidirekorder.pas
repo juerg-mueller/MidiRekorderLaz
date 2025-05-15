@@ -107,13 +107,13 @@ begin
     dec(Status, $10);
     Data2 := 64;
   end;
-  MidiGriff.OnMidiInData_(Status, Data1, Data2, TimeStamp);
+  MidiGriff.OnMidiInData_(Status, Data1, Data2, 0);
 end;
 {$else}
 procedure TMidiGriff.OnMidiInData(Status, Data1, Data2: byte; Timestamp: integer);
 begin
 {$ifdef CONSOLE}
-  writeln(Status, '  ', Data1, '  ', Data2);
+//  writeln(Status, '  ', Data1, '  ', Data2);
 {$endif}
   if ((Status shr 4) = 9) and (Data2 = 0) then
   begin
@@ -181,8 +181,6 @@ end;
 
 procedure TMidiGriff.Timer1Timer(Sender: TObject);  // Timer für Metronom
 var
-  Event: TMouseEvent;
-  Key: word;
   BPM, mDiv: integer;
   sec: boolean;
   pip: byte;
@@ -199,13 +197,13 @@ begin
   if Metronom then
   begin
     Time := now;
+    BPM := Header.beatsPerMin;
+    mDiv := Header.measureDiv; // ist 4 oder 8
     if nextPip = 0 then begin
       nextPip := Time;
       pipDelay := Time + 1/(24.0*60.0)/BPM;
       pipCount := 0;
     end;
-    BPM := Header.beatsPerMin;
-    mDiv := Header.measureDiv; // ist 4 oder 8
     if NurTakt then
       sec := false
     else
@@ -265,7 +263,7 @@ begin
   end else
   if cbxMidiInput.ItemIndex < 1 then
   begin
-    Application.MessageBox('Bitte, wählen Sie einen Midi Input', 'Fehler');
+    Application.MessageBox('Bitte, wählen Sie einen Midi Input!', 'Fehler');
   end else begin
     MidiRec := TMidiRecord.Create(Header);
     InRecord := true;
@@ -323,20 +321,19 @@ procedure TMidiGriff.cbxDiskantBankChange(Sender: TObject);
   end;
 var
   i: integer;
-  iBank, iInstr: integer;
   Bank: TArrayOfString;
 begin
-  iBank := getInt(cbxDiskantBank.Text);
+  MidiBankDiskant := getInt(cbxDiskantBank.Text);
   if Sender = cbxDiskantBank then
   begin
-    GetBank(Bank, iBank);
+    GetBank(Bank, MidiBankDiskant);
     CopyArray(cbxMidiDiskant, Bank);
   end;
-  iInstr := getInt(cbxMidiDiskant.Text);
+  MidiInstrDiskant := getInt(cbxMidiDiskant.Text);
   for i := 0 to 7 do
   begin
-    OnMidiInData_($b0 + i, iBank, 0, 0);  // 0x32, LSB Bank);
-    OnMidiInData_($c0 + i, iInstr, 0, 0);
+    OnMidiInData_($b0 + i, 0, MidiBankDiskant, 0);  // 0x32, LSB Bank);
+    OnMidiInData_($c0 + i, MidiInstrDiskant, 0, 0);
   end
 end;
 
