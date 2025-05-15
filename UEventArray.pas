@@ -204,7 +204,6 @@ var
   i: integer;
   d: double;
   takt, offset: integer;
-  Events: TMidiEventArray;
   bpm: double;
   l, k: integer;
 

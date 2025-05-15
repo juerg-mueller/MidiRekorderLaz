@@ -474,7 +474,7 @@ procedure TMidiOutput.Send(const aStatus, aData1, aData2: byte);
 var
   lMsg: cardinal;
 begin
-  if not assigned(fDeviceNames.Objects[ DeviceIndex ]) then
+  if (DeviceIndex < 0) or not assigned(fDeviceNames.Objects[ DeviceIndex ]) then
     exit;
 
   lMsg := aStatus + (aData1 * $100) + (aData2 * $10000);
@@ -540,6 +540,7 @@ begin
       MidiOutput.Send($c4, MidiInstr, $00);
       MidiOutput.Send($c5, MidiInstr, $00);
       MidiOutput.Send($c6, MidiInstr, $00);
+      MidiOutput.Send($c7, MidiInstr, $00);
     finally
     end;
   {$if defined(CONSOLE)}

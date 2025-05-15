@@ -193,7 +193,7 @@ object MidiGriff: TMidiGriff
       Alignment = taRightJustify
       OnExit = edtBPMExit
       TabOrder = 2
-      Text = '60'
+      Text = '120'
     end
     object cbxMetronom: TCheckBox
       Left = 135
