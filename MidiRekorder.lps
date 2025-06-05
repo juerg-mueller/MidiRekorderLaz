@@ -2,53 +2,57 @@
 <CONFIG>
   <ProjectSession>
     <Version Value="12"/>
-    <BuildModes Active="Default"/>
+    <BuildModes Active="Win32"/>
     <Units>
       <Unit>
         <Filename Value="MidiRekorder.dpr"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="-1"/>
-        <CursorPos X="36" Y="31"/>
-        <UsageCount Value="109"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="7"/>
+        <TopLine Value="13"/>
+        <CursorPos X="52" Y="24"/>
+        <UsageCount Value="143"/>
+        <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="umidirekorder.pas"/>
         <IsPartOfProject Value="True"/>
-        <ComponentName Value="MidiGriff"/>
+        <ComponentName Value="MidiRecorder"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="3"/>
-        <TopLine Value="121"/>
-        <CursorPos X="23" Y="98"/>
-        <UsageCount Value="109"/>
+        <TopLine Value="174"/>
+        <CursorPos X="42" Y="180"/>
+        <UsageCount Value="143"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="UMidiDataStream.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="2"/>
-        <TopLine Value="1252"/>
-        <CursorPos X="68" Y="1269"/>
-        <UsageCount Value="109"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="63"/>
+        <CursorPos X="40" Y="92"/>
+        <UsageCount Value="143"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="UEventArray.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="5"/>
-        <UsageCount Value="109"/>
+        <EditorIndex Value="2"/>
+        <TopLine Value="811"/>
+        <CursorPos X="22" Y="830"/>
+        <UsageCount Value="143"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="UMidiEvent.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="-1"/>
-        <WindowIndex Value="-1"/>
-        <TopLine Value="-1"/>
-        <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="109"/>
+        <EditorIndex Value="8"/>
+        <TopLine Value="91"/>
+        <CursorPos X="18" Y="110"/>
+        <UsageCount Value="143"/>
+        <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="UMyMemoryStream.pas"/>
@@ -57,69 +61,108 @@
         <WindowIndex Value="-1"/>
         <TopLine Value="-1"/>
         <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="109"/>
+        <UsageCount Value="143"/>
       </Unit>
       <Unit>
         <Filename Value="UMyMidiStream.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="1"/>
-        <UsageCount Value="109"/>
+        <TopLine Value="35"/>
+        <CursorPos X="70" Y="55"/>
+        <UsageCount Value="143"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="urtmidi.pas"/>
         <IsPartOfProject Value="True"/>
-        <TopLine Value="152"/>
-        <CursorPos X="10" Y="172"/>
-        <UsageCount Value="107"/>
-        <Loaded Value="True"/>
-      </Unit>
-      <Unit>
-        <Filename Value="UMidiSaveStream.pas"/>
-        <IsPartOfProject Value="True"/>
-        <EditorIndex Value="4"/>
-        <TopLine Value="47"/>
-        <CursorPos X="65" Y="64"/>
-        <UsageCount Value="70"/>
-        <Loaded Value="True"/>
+        <UnitName Value="Urtmidi"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="140"/>
+        <CursorPos X="94" Y="156"/>
+        <UsageCount Value="141"/>
       </Unit>
       <Unit>
         <Filename Value="ubanks.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="UBanks"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="67"/>
-        <CursorPos X="100" Y="78"/>
-        <UsageCount Value="64"/>
+        <CursorPos X="25" Y="78"/>
+        <UsageCount Value="98"/>
+      </Unit>
+      <Unit>
+        <Filename Value="umidi.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="UMidi"/>
+        <EditorIndex Value="5"/>
+        <TopLine Value="3"/>
+        <CursorPos X="33" Y="10"/>
+        <UsageCount Value="54"/>
         <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="UFormHelper.pas"/>
+        <IsPartOfProject Value="True"/>
+        <EditorIndex Value="-1"/>
+        <WindowIndex Value="-1"/>
+        <TopLine Value="-1"/>
+        <CursorPos X="-1" Y="-1"/>
+        <UsageCount Value="54"/>
+      </Unit>
+      <Unit>
+        <Filename Value="umididatain.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="UMidiDataIn"/>
+        <EditorIndex Value="4"/>
+        <TopLine Value="155"/>
+        <CursorPos X="22" Y="171"/>
+        <UsageCount Value="49"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="rtmidi.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="RtMidi"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="208"/>
+        <CursorPos Y="269"/>
+        <UsageCount Value="29"/>
+      </Unit>
+      <Unit>
+        <Filename Value="Midi.pas"/>
+        <IsPartOfProject Value="True"/>
+        <EditorIndex Value="6"/>
+        <TopLine Value="15"/>
+        <CursorPos X="55" Y="26"/>
+        <UsageCount Value="20"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="UMidiSaveStream.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="334"/>
+        <CursorPos X="5" Y="370"/>
+        <UsageCount Value="85"/>
       </Unit>
       <Unit>
         <Filename Value="UVirtual.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="9"/>
         <CursorPos X="5" Y="22"/>
-        <UsageCount Value="108"/>
-      </Unit>
-      <Unit>
-        <Filename Value="Midi.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="241"/>
-        <CursorPos X="19" Y="251"/>
-        <UsageCount Value="3"/>
+        <UsageCount Value="106"/>
       </Unit>
       <Unit>
         <Filename Value="teVirtual/teVirtualMIDIdll.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="19"/>
         <CursorPos X="6" Y="22"/>
-        <UsageCount Value="13"/>
+        <UsageCount Value="11"/>
       </Unit>
       <Unit>
         <Filename Value="rtmidi_c.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="68"/>
         <CursorPos X="42" Y="76"/>
-        <UsageCount Value="3"/>
+        <UsageCount Value="1"/>
       </Unit>
       <Unit>
         <Filename Value="../Virtuelle-Steirische-Harmonika-main/UVirtualHarmonica.pas"/>
@@ -127,13 +170,14 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
-        <CursorPos X="54" Y="15"/>
-        <UsageCount Value="7"/>
+        <TopLine Value="142"/>
+        <CursorPos X="53" Y="160"/>
+        <UsageCount Value="10"/>
       </Unit>
       <Unit>
         <Filename Value="../Virtuelle-Steirische-Harmonika-main/UVirtualHarmonica.dfm"/>
         <EditorIndex Value="-1"/>
-        <UsageCount Value="7"/>
+        <UsageCount Value="5"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit>
       <Unit>
@@ -141,134 +185,182 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="340"/>
         <CursorPos Y="361"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="8"/>
       </Unit>
       <Unit>
         <Filename Value="/usr/lib/lazarus/2.2.6/lcl/include/customcombobox.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="205"/>
         <CursorPos Y="212"/>
+        <UsageCount Value="8"/>
+      </Unit>
+      <Unit>
+        <Filename Value="../../fpcsrc/rtl/objpas/classes/classesh.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="740"/>
+        <CursorPos X="25" Y="756"/>
+        <UsageCount Value="8"/>
+      </Unit>
+      <Unit>
+        <Filename Value="../Virtuelle-Steirische-Harmonika-main/UAmpel.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="1449"/>
+        <CursorPos X="54" Y="1451"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="../../fpcsrc/rtl/inc/objpash.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="188"/>
+        <CursorPos X="23" Y="206"/>
+        <UsageCount Value="8"/>
+      </Unit>
+      <Unit>
+        <Filename Value="../../lazarus/lcl/include/customform.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="915"/>
+        <CursorPos X="57" Y="951"/>
+        <UsageCount Value="8"/>
+      </Unit>
+      <Unit>
+        <Filename Value="../../lazarus/lcl/customtimer.pas"/>
+        <UnitName Value="CustomTimer"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="134"/>
+        <CursorPos Y="153"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="../../lazarus/lcl/interfaces/gtk2/gtk2callback.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="2739"/>
+        <CursorPos Y="2776"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="../../fpcsrc/rtl/linux/linux.pp"/>
+        <UnitName Value="Linux"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="725"/>
+        <CursorPos X="12" Y="754"/>
         <UsageCount Value="10"/>
       </Unit>
     </Units>
-    <JumpHistory HistoryIndex="29">
+    <OtherDefines Count="1">
+      <Define0 Value="DEBUG"/>
+    </OtherDefines>
+    <JumpHistory HistoryIndex="27">
       <Position>
-        <Filename Value="umidirekorder.pas"/>
-        <Caret Line="318" Column="29" TopLine="287"/>
+        <Filename Value="umididatain.pas"/>
+        <Caret Line="119" Column="3" TopLine="112"/>
       </Position>
       <Position>
         <Filename Value="umidirekorder.pas"/>
-        <Caret Line="320" Column="24" TopLine="289"/>
+        <Caret Line="55" Column="27" TopLine="38"/>
       </Position>
       <Position>
         <Filename Value="umidirekorder.pas"/>
-        <Caret Line="321" Column="35" TopLine="290"/>
+        <Caret Line="50" Column="32" TopLine="33"/>
+      </Position>
+      <Position>
+        <Filename Value="UEventArray.pas"/>
+        <Caret Line="363" Column="6" TopLine="346"/>
+      </Position>
+      <Position>
+        <Filename Value="UEventArray.pas"/>
+        <Caret Line="830" Column="22" TopLine="811"/>
       </Position>
       <Position>
         <Filename Value="umidirekorder.pas"/>
-        <Caret Line="326" Column="60" TopLine="295"/>
+        <Caret Line="13" Column="49"/>
       </Position>
       <Position>
-        <Filename Value="urtmidi.pas"/>
-        <Caret Line="322" TopLine="291"/>
+        <Filename Value="UMidiEvent.pas"/>
+        <Caret Line="240" Column="72" TopLine="213"/>
       </Position>
       <Position>
-        <Filename Value="urtmidi.pas"/>
-        <Caret Line="188" Column="12" TopLine="160"/>
+        <Filename Value="umididatain.pas"/>
+        <Caret Line="129" Column="5" TopLine="108"/>
       </Position>
       <Position>
-        <Filename Value="umidirekorder.pas"/>
-        <Caret Line="340" Column="19" TopLine="309"/>
+        <Filename Value="UMidiEvent.pas"/>
+        <Caret Line="110" Column="18" TopLine="91"/>
       </Position>
       <Position>
-        <Filename Value="umidirekorder.pas"/>
+        <Filename Value="umidi.pas"/>
+        <Caret Line="128" Column="30" TopLine="117"/>
       </Position>
       <Position>
-        <Filename Value="urtmidi.pas"/>
-        <Caret Line="316" Column="103" TopLine="296"/>
+        <Filename Value="umidi.pas"/>
+        <Caret Line="165" Column="61" TopLine="154"/>
       </Position>
       <Position>
-        <Filename Value="umidirekorder.pas"/>
+        <Filename Value="umidi.pas"/>
+        <Caret Line="28" Column="19" TopLine="15"/>
       </Position>
       <Position>
-        <Filename Value="umidirekorder.pas"/>
-        <Caret Line="325" Column="39" TopLine="302"/>
-      </Position>
-      <Position>
-        <Filename Value="ubanks.pas"/>
-        <Caret Line="2083" TopLine="1989"/>
-      </Position>
-      <Position>
-        <Filename Value="urtmidi.pas"/>
-        <Caret Line="190" Column="19" TopLine="169"/>
-      </Position>
-      <Position>
-        <Filename Value="UMidiSaveStream.pas"/>
-        <Caret Line="64" Column="65" TopLine="47"/>
+        <Filename Value="umidi.pas"/>
+        <Caret Line="122" Column="15" TopLine="103"/>
       </Position>
       <Position>
         <Filename Value="umidirekorder.pas"/>
-        <Caret Line="98" Column="16" TopLine="78"/>
+        <Caret Line="181" Column="46" TopLine="171"/>
+      </Position>
+      <Position>
+        <Filename Value="umidi.pas"/>
+        <Caret Line="122" Column="6" TopLine="107"/>
+      </Position>
+      <Position>
+        <Filename Value="umidi.pas"/>
+        <Caret Line="158" Column="8" TopLine="141"/>
+      </Position>
+      <Position>
+        <Filename Value="umidi.pas"/>
+        <Caret Line="159" Column="11" TopLine="142"/>
+      </Position>
+      <Position>
+        <Filename Value="umidi.pas"/>
+        <Caret Line="160" Column="10" TopLine="143"/>
+      </Position>
+      <Position>
+        <Filename Value="umidi.pas"/>
+        <Caret Line="122" Column="6" TopLine="111"/>
+      </Position>
+      <Position>
+        <Filename Value="umidi.pas"/>
+        <Caret Line="28" Column="26" TopLine="18"/>
+      </Position>
+      <Position>
+        <Filename Value="umidi.pas"/>
+        <Caret Line="178" Column="26" TopLine="144"/>
       </Position>
       <Position>
         <Filename Value="umidirekorder.pas"/>
-        <Caret Line="105" Column="25" TopLine="78"/>
+        <Caret Line="181" Column="15" TopLine="171"/>
+      </Position>
+      <Position>
+        <Filename Value="umididatain.pas"/>
+        <Caret Line="20" Column="41" TopLine="10"/>
+      </Position>
+      <Position>
+        <Filename Value="umididatain.pas"/>
+        <Caret Line="171" Column="22" TopLine="155"/>
       </Position>
       <Position>
         <Filename Value="umidirekorder.pas"/>
-        <Caret Line="108" Column="34" TopLine="78"/>
+        <Caret Line="180" Column="42" TopLine="174"/>
       </Position>
       <Position>
-        <Filename Value="umidirekorder.pas"/>
-        <Caret Line="114" Column="25" TopLine="83"/>
+        <Filename Value="umidi.pas"/>
+        <Caret Line="5" Column="82" TopLine="4"/>
       </Position>
       <Position>
-        <Filename Value="umidirekorder.pas"/>
-        <Caret Line="183" Column="17" TopLine="152"/>
+        <Filename Value="umidi.pas"/>
+        <Caret Line="10" Column="33" TopLine="3"/>
       </Position>
       <Position>
-        <Filename Value="umidirekorder.pas"/>
-        <Caret Line="261" Column="19" TopLine="230"/>
-      </Position>
-      <Position>
-        <Filename Value="umidirekorder.pas"/>
-        <Caret Line="270" Column="17" TopLine="239"/>
-      </Position>
-      <Position>
-        <Filename Value="umidirekorder.pas"/>
-        <Caret Line="278" Column="25" TopLine="247"/>
-      </Position>
-      <Position>
-        <Filename Value="umidirekorder.pas"/>
-        <Caret Line="282" Column="44" TopLine="251"/>
-      </Position>
-      <Position>
-        <Filename Value="umidirekorder.pas"/>
-        <Caret Line="285" Column="43" TopLine="254"/>
-      </Position>
-      <Position>
-        <Filename Value="umidirekorder.pas"/>
-        <Caret Line="325" Column="17" TopLine="294"/>
-      </Position>
-      <Position>
-        <Filename Value="umidirekorder.pas"/>
-        <Caret Line="326" Column="17" TopLine="295"/>
-      </Position>
-      <Position>
-        <Filename Value="urtmidi.pas"/>
-        <Caret Line="172" Column="10" TopLine="152"/>
-      </Position>
-      <Position>
-        <Filename Value="umidirekorder.pas"/>
-        <Caret Line="65" Column="54" TopLine="51"/>
-      </Position>
-      <Position>
-        <Filename Value="umidirekorder.pas"/>
-        <Caret Line="66" Column="27" TopLine="51"/>
-      </Position>
-      <Position>
-        <Filename Value="umidirekorder.pas"/>
-        <Caret Line="69" Column="27" TopLine="51"/>
+        <Filename Value="Midi.pas"/>
+        <Caret Line="16" Column="27" TopLine="15"/>
       </Position>
     </JumpHistory>
     <RunParams>
