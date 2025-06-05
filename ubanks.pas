@@ -2062,13 +2062,9 @@ const
     ];
   {$endif}
 
-{$ifdef abs}
+var
   Banks: TBanks =
-  {$ifdef FPC}
     (
-  {$else}
-    [
-  {$endif}
         @s0, @s1, @s2, @s3, @s4, @s5, @s6, @s7,
         @s8, @s9, @s10, @s11, @s12, @s13, @s14, @s15,
         @s16, @s17, @s18, @s19, @s20, @s21, nil, @s23,
@@ -2082,15 +2078,7 @@ const
         @s80, @s81, @s82, @s83, @s84, nil, nil, nil,
         nil, nil, nil, nil, nil, nil, nil, nil,
         nil, nil, @s98, @s99
-  {$ifdef FPC}
     );
-  {$else}
-    ];
-  {$endif}
-{$endif}
-
-var
-  Banks: TBanks;
 
 procedure CopyBank(var Bank: TArrayOfString; Bank_: PArrayOfString);
 var

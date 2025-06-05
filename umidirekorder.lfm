@@ -1,4 +1,4 @@
-object MidiGriff: TMidiGriff
+object MidiRecorder: TMidiRecorder
   Left = 1222
   Height = 457
   Top = 573
@@ -13,8 +13,9 @@ object MidiGriff: TMidiGriff
   OnClose = FormClose
   OnCloseQuery = FormCloseQuery
   OnCreate = FormCreate
+  OnDestroy = FormDestroy
   Position = poDesktopCenter
-  LCLVersion = '2.2.6.0'
+  LCLVersion = '3.6.0.0'
   object gbMIDI: TGroupBox
     Left = 0
     Height = 168
@@ -24,6 +25,7 @@ object MidiGriff: TMidiGriff
     Caption = 'MIDI'
     ClientHeight = 151
     ClientWidth = 546
+    ParentBackground = False
     TabOrder = 0
     object Label17: TLabel
       Left = 35
@@ -47,8 +49,8 @@ object MidiGriff: TMidiGriff
       Top = 66
       Width = 114
       Caption = 'Aufnahme starten'
-      OnClick = btnStartClick
       TabOrder = 0
+      OnClick = btnStartClick
     end
     object cbxMidiInput: TComboBox
       Left = 135
@@ -57,9 +59,9 @@ object MidiGriff: TMidiGriff
       Width = 264
       Anchors = [akTop, akLeft, akRight]
       ItemHeight = 0
-      OnChange = cbxMidiInputChange
       Style = csDropDownList
       TabOrder = 1
+      OnChange = cbxMidiInputChange
     end
     object cbxMidiOut: TComboBox
       Left = 135
@@ -68,9 +70,9 @@ object MidiGriff: TMidiGriff
       Width = 264
       Anchors = [akTop, akLeft, akRight]
       ItemHeight = 0
-      OnChange = cbxMidiOutChange
       Style = csDropDownList
       TabOrder = 2
+      OnChange = cbxMidiOutChange
     end
     object sbMetronom1: TScrollBar
       Left = 135
@@ -103,6 +105,7 @@ object MidiGriff: TMidiGriff
     Caption = 'Taktangaben'
     ClientHeight = 166
     ClientWidth = 546
+    ParentBackground = False
     TabOrder = 1
     object Label8: TLabel
       Left = 35
@@ -155,10 +158,10 @@ object MidiGriff: TMidiGriff
         'Viertel'
         'Achtel'
       )
-      OnChange = cbxViertelChange
       Style = csDropDownList
       TabOrder = 1
       Text = 'Viertel'
+      OnChange = cbxViertelChange
     end
     object cbxTakt: TComboBox
       Left = 135
@@ -180,10 +183,10 @@ object MidiGriff: TMidiGriff
         '11'
         '12'
       )
-      OnChange = cbxTaktChange
       Style = csDropDownList
       TabOrder = 0
       Text = '4'
+      OnChange = cbxTaktChange
     end
     object edtBPM: TEdit
       Left = 135
@@ -191,17 +194,17 @@ object MidiGriff: TMidiGriff
       Top = 43
       Width = 70
       Alignment = taRightJustify
-      OnExit = edtBPMExit
       TabOrder = 2
       Text = '120'
+      OnExit = edtBPMExit
     end
     object cbxMetronom: TCheckBox
       Left = 135
       Height = 21
       Top = 102
       Width = 21
-      OnClick = cbxMetronomClick
       TabOrder = 4
+      OnClick = cbxMetronomClick
     end
     object sbMetronom: TScrollBar
       Left = 135
@@ -221,8 +224,8 @@ object MidiGriff: TMidiGriff
       Height = 21
       Top = 123
       Width = 21
-      OnClick = cbxNurTaktClick
       TabOrder = 5
+      OnClick = cbxNurTaktClick
     end
   end
   object gbMidiInstrument: TGroupBox
@@ -234,6 +237,7 @@ object MidiGriff: TMidiGriff
     Caption = 'MIDI Instrument'
     ClientHeight = 89
     ClientWidth = 546
+    ParentBackground = False
     TabOrder = 2
     object Label3: TLabel
       Left = 35
@@ -388,10 +392,10 @@ object MidiGriff: TMidiGriff
         '127 Applause'
         '128 Gun Shot (Gewehrschuss)'
       )
-      OnChange = cbxDiskantBankChange
       Style = csDropDownList
       TabOrder = 0
       Text = '22 Accordion'
+      OnChange = cbxDiskantBankChange
     end
     object cbxDiskantBank: TComboBox
       Left = 135
@@ -473,10 +477,10 @@ object MidiGriff: TMidiGriff
         '69'
         '70'
       )
-      OnChange = cbxDiskantBankChange
       Style = csDropDownList
       TabOrder = 1
       Text = '00 - General Midi'
+      OnChange = cbxDiskantBankChange
     end
   end
   object SaveDialog1: TSaveDialog
