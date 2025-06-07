@@ -15,7 +15,7 @@ uses
   {$IFDEF HASAMIGA}
   athreads,
   {$ENDIF}
-  {$ifndef mswindos}
+  {$if not defined(mswindows) or defined(USE_RTMIDI)}
   rtmidi,
   urtmidi,
   {$else}
@@ -31,7 +31,7 @@ uses
   UMyMidiStream in 'UMyMidiStream.pas',
   UMidiDataStream in 'UMidiDataStream.pas',
   UEventArray in 'UEventArray.pas',
-  UBanks, UMidi, UFormHelper, UMidiDataIn;
+  UBanks, UMidi, UFormHelper, UMidiDataIn, CriticalSection;
 
 begin
 {$ifdef FPC}

@@ -92,6 +92,7 @@ type
     function GetAnsi: AnsiString;
     function GetInt: cardinal;
     function GetAnsiChar(Idx: integer): AnsiChar;
+    procedure CorrectRunningStatus;
 
     property str: String read GetBytes;
     property ansi: AnsiString read GetAnsi;
@@ -564,6 +565,15 @@ begin
   d1 := d1_;
   d2 := d2_;
   var_len := 0;
+end;
+
+procedure TMidiEvent.CorrectRunningStatus;
+begin
+  if (Event = 4) and (d2 = 0) then
+  begin
+    dec(command, $10);
+    d2 := 64;
+  end;
 end;
 
 procedure TMidiEvent.AppendByte(b: byte);

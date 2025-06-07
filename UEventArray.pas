@@ -33,7 +33,7 @@ const
 type
   TCopyright = (noCopy, prepCopy, griffCopy, realCopy, newCopy);
 
-  TMidiEventArray = array of TMidiEvent;
+  //TMidiEventArray = array of TMidiEvent;
   PMidiEventArray = ^TMidiEventArray;
   TChannelEventArray = array [0..15] of TMidiEventArray;
   TTrackEventArray = array of TMidiEventArray;

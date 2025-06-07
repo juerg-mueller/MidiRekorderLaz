@@ -25,6 +25,11 @@
             <IncludeFiles Value="$(ProjOutDir)"/>
             <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
+          <Parsing>
+            <SyntaxOptions>
+              <IncludeAssertionCode Value="True"/>
+            </SyntaxOptions>
+          </Parsing>
           <CodeGeneration>
             <Checks>
               <IOChecks Value="True"/>
@@ -45,9 +50,11 @@
             </Options>
           </Linking>
           <Other>
-            <CustomOptions Value="-dDEBUG"/>
-            <OtherDefines Count="1">
+            <CustomOptions Value="-dDEBUG
+-dUSE_NOW"/>
+            <OtherDefines Count="2">
               <Define0 Value="DEBUG"/>
+              <Define1 Value="USE_NOW"/>
             </OtherDefines>
           </Other>
         </CompilerOptions>
@@ -106,6 +113,40 @@
               </Win32>
             </Options>
           </Linking>
+        </CompilerOptions>
+      </Item>
+      <Item Name="Win32RTmidi">
+        <CompilerOptions>
+          <Version Value="11"/>
+          <Target>
+            <Filename Value="MidiRekorder-$(TargetCPU)rt"/>
+          </Target>
+          <SearchPaths>
+            <IncludeFiles Value="$(ProjOutDir)"/>
+            <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
+          </SearchPaths>
+          <CodeGeneration>
+            <TargetCPU Value="i386"/>
+            <TargetOS Value="win32"/>
+          </CodeGeneration>
+          <Linking>
+            <Debugging>
+              <GenerateDebugInfo Value="False"/>
+              <RunWithoutDebug Value="True"/>
+              <DebugInfoType Value="dsDwarf3"/>
+            </Debugging>
+            <Options>
+              <Win32>
+                <GraphicApplication Value="True"/>
+              </Win32>
+            </Options>
+          </Linking>
+          <Other>
+            <CustomOptions Value="-dUSE_RTMIDI"/>
+            <OtherDefines Count="1">
+              <Define0 Value="USE_RTMIDI"/>
+            </OtherDefines>
+          </Other>
         </CompilerOptions>
       </Item>
     </BuildModes>
@@ -186,6 +227,11 @@
         <Filename Value="Midi.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit>
+      <Unit>
+        <Filename Value="criticalsection.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="CriticalSection"/>
+      </Unit>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -199,7 +245,7 @@
     </SearchPaths>
     <CodeGeneration>
       <Optimizations>
-        <OptimizationLevel Value="0"/>
+        <OptimizationLevel Value="2"/>
       </Optimizations>
     </CodeGeneration>
     <Linking>
@@ -214,6 +260,12 @@
         </Win32>
       </Options>
     </Linking>
+    <Other>
+      <CustomOptions Value="-dUSE_NOW"/>
+      <OtherDefines Count="1">
+        <Define0 Value="USE_NOW"/>
+      </OtherDefines>
+    </Other>
   </CompilerOptions>
   <Debugging>
     <Exceptions>

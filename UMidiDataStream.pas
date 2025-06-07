@@ -649,9 +649,8 @@ procedure TSimpleDataStream.WriteHeader(const Header: TMidiHeader);
 begin
   with Header do
   begin
-    WritelnString(cSimpleHeader + ' ' + IntToStr(ord(FileFormat)) + ' ' + 
-                  IntToStr(TrackCount) + ' ' + IntToStr(Details.TicksPerQuarter) +
-                  ' ' + IntToStr(Details.QuarterPerMin));
+    WritelnString(Format(cSimpleHeader + ' %d %d %d %d  - Fileformat  TrackCount  TicksPerQuarter  QuarterPerMin',
+                  [ord(FileFormat), TrackCount, Details.TicksPerQuarter, Details.QuarterPerMin]));
   end;
 end;
 
@@ -668,7 +667,8 @@ var
   i: integer;
   b: byte;
   ba: array of byte;
-  Offset, takt: integer;
+  Offset: integer;
+  Takt: double;
   d: double;
 begin
   result := TSimpleDataStream.Create;
@@ -726,8 +726,14 @@ begin
                   else
                     result.WriteString('.');
               end;
-              result.MidiHeader.Details.SetTimeSignature(event, ba);
-              result.MidiHeader.Details.SetQuarterPerMin(event, ba);
+              if result.MidiHeader.Details.SetTimeSignature(event, ba) then
+              begin
+                result.WriteString(Format('  - %d/%d Takt', [result.MidiHeader.Details.measureFact,result.MidiHeader.Details.measureDiv]));
+              end;
+              if result.MidiHeader.Details.SetQuarterPerMin(event, ba) then
+              begin
+                result.WriteString(Format('  - %d Viertel pro Min.', [result.MidiHeader.Details.QuarterPerMin]));
+              end;
               result.MidiHeader.Details.SetDurMinor(event, ba);
             end;
           8..14: begin
@@ -739,11 +745,13 @@ begin
                                    [event.var_len, event.command, event.d1, event.d2]));
               if event.Event = 9 then
               begin
-                takt := Offset div result.MidiHeader.Details.TicksPerQuarter;
+                takt := Offset / result.MidiHeader.Details.TicksPerQuarter;
                 if result.MidiHeader.Details.measureDiv = 8 then
                   takt := 2*takt;
                 d := result.MidiHeader.Details.measureFact;
                 result.WriteString(Format('  Takt: %.2f', [takt / d + 1]));
+
+                result.WriteString(MidiNote(event.d1));
               end;
               inc(Offset, event.var_len);
             end;
@@ -757,10 +765,6 @@ begin
             if (b < $80) then
               result.WriteString(Format(' %d', [MidiDataStream.ReadByte]));
           until b >= $80;
-          if event.Event = 9 then
-          begin
-            result.WriteString(MidiNote(event.d1));
-          end;
           result.WritelnString('');
         end;
       end;

@@ -1,4 +1,4 @@
-object MidiGriff: TMidiGriff
+object MidiRecorder: TMidiRecorder
   Left = 1222
   Top = 573
   Caption = 'MIDI Rekorder'

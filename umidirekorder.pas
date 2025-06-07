@@ -7,10 +7,10 @@ interface
 uses
   UMidi, UMidiDataStream, UMidiDataIn,
 {$ifdef VCL}
-  Winapi.Windows, Winapi.Messages,
+  Winapi.Windows, Winapi.Messages, syncobjs,
 {$endif}
   SysUtils, Variants, Classes, Graphics,
-  Controls, Forms, Dialogs, StdCtrls, CheckLst, syncobjs,
+  Controls, Forms, Dialogs, StdCtrls, CheckLst,
   ExtCtrls,
   UMidiEvent, UBanks;
 type
@@ -79,7 +79,7 @@ implementation
   {$R *.dfm}
 {$endif}
 uses
-{$ifndef mswindows}
+{$if not defined(mswindows) or defined(USE_RTMIDI)}
   urtmidi;
 {$else}
   Midi;
@@ -91,15 +91,12 @@ const
 
 procedure TMidiRecorder.OnMidiInData(DeviceIndex: LongInt; Status, Data1, Data2: byte; Timestamp: Int64);
 var
-  Data: TMidiInData;
+  Event: TMidiEvent;
 begin
-  Data.Clear;
-  Data.DeviceIndex := DeviceIndex;
-  Data.Status := Status;
-  Data.Data1 := Data1;
-  Data.Data2 := Data2;
-  Data.Timestamp := Timestamp;
-  MidiInBuffer.Put(Data);
+  Event.SetEvent(Status, Data1, Data2);
+  if InRecord then
+    MidiEventRecorder.Append(Event);
+  MidiInBuffer.Put(Event);
 end;
 
 procedure TMidiRecorder.SaveMidi;
@@ -109,7 +106,7 @@ var
   Simple: TSimpleDataStream;
   i: integer;
 begin
-  SaveStream := MidiEventRecorder.MakeRecordStream(Header);
+  SaveStream := MidiEventRecorder.MakeRecordStream;
   if SaveStream <> nil then
   begin
     name := 'midi_rekorder';
@@ -158,29 +155,22 @@ end;
 
 procedure TMidiRecorder.Timer1Timer(Sender: TObject);  // Timer für Metronom
 var
-  rec: TMidiInData;
+  rec: TMidiEvent;
 begin
   while MidiInBuffer.Get(rec) do
   begin
-    if InRecord and ((rec.Status shr 4) <= 11) then
     begin
-      if ((rec.Status shr 4) = 9) and (rec.Data2 = 0) then // running Status
-      begin
-        dec(rec.Status, $10);
-        rec.Data2 := 64;
-      end;
-      MidiEventRecorder.Append(rec.GetMidiEvent);
+      rec.CorrectRunningStatus;
+      SendMidiEvent(rec);
     end;
-    SendMidiEvent(rec.GetMidiEvent);
   end;
 
   if Metronom.DoPip(Header) then
   begin
-    rec.Init(Metronom.MidiEvent);
+    rec := Metronom.MidiEvent;
     if InRecord and Metronom.IsFirst then // Taktbeginn
-      MidiInBuffer.Put(rec)
-    else
-      SendMidiEvent(rec.GetMidiEvent);
+      MidiEventRecorder.Append(rec);
+    SendMidiEvent(rec);
   end;
 end;
 
@@ -213,6 +203,7 @@ begin
   Metronom.SetOn(cbxMetronom.Checked);
   if not Metronom.On_ then
   begin
+    // für alle Fälle Noten-Off
     SendMidi($80 + pipChannel, pipFirst, 64);
     SendMidi($80 + pipChannel, pipSecond, 64);
   end;
@@ -304,7 +295,7 @@ end;
 procedure TMidiRecorder.cbxTaktChange(Sender: TObject);
 begin
   Header.measureFact := cbxTakt.ItemIndex + 2;
-  MidiInBuffer.Header := Header;
+  MidiEventRecorder.Header := Header;
 end;
 
 procedure TMidiRecorder.cbxViertelChange(Sender: TObject);
@@ -317,7 +308,7 @@ begin
     else q := 4;
   end;
   Header.MeasureDiv :=  q;
-  MidiInBuffer.Header := Header;
+  MidiEventRecorder.Header := Header;
 end;
 
 procedure TMidiRecorder.edtBPMExit(Sender: TObject);
@@ -337,7 +328,6 @@ begin
   CanClose := btnStart.Caption = strStart;
 end;
 
-{$ifdef FPC}
 procedure InsertList(Combo: TComboBox; const arr: array of string);
 var
   i: integer;
@@ -345,15 +335,6 @@ begin
   for i := 0 to Length(arr)-1 do
     Combo.AddItem(arr[i], nil);
 end;
-{$else}
-procedure InsertList(Combo: TComboBox; arr: TStringList);
-var
-  i: integer;
-begin
-  for i := 0 to arr.Count-1 do
-    Combo.AddItem(arr[i], nil);
-end;
-{$endif}
 
 procedure AddLine(cbx: TComboBox);
 begin
@@ -365,7 +346,9 @@ procedure TMidiRecorder.FormCreate(Sender: TObject);
 var
   Bank: TArrayOfString;
 begin
+  Header.Clear;
   MidiEventRecorder := TMidiEventRecorder.Create;
+  MidiEventRecorder.Header := Header;
   MidiInput.GenerateList;
   MidiOutput.GenerateList;
   InRecord := false;
@@ -375,8 +358,7 @@ begin
   InsertList(cbxMidiInput, MidiInput.DeviceNames);
   AddLine(cbxMidiInput);
   cbxMidiInput.ItemIndex := 0;
-  Header.Clear;
-  MidiInBuffer := TMidiInRingBuffer.Create(Header);
+  MidiInBuffer := TMidiInRingBuffer.Create;
   btnStart.Caption := strStart;
   edtBPMExit(nil);
   sbMetronomChange(sbMetronom);

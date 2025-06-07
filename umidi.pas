@@ -8,7 +8,7 @@ interface
 
 uses
   Classes, SysUtils, UMidiEvent,
-{$ifndef mswindows}
+{$if not defined(mswindows) or defined(USE_RTMIDI)}
   Urtmidi;
 {$else}
   Midi;

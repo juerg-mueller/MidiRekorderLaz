@@ -7,49 +7,54 @@ unit UMidiDataIn;
 interface
 
 uses
-  Classes, SysUtils, UMidiEvent, SyncObjs, UMidiDataStream, UEventArray;
+  Classes, SysUtils, UMidiEvent, UMidiDataStream, UEventArray, CriticalSection;
 
 type
   TMidiInData = record
     DeviceIndex: integer;
-    Status, Data1, Data2: byte;
-    var_len: integer;
     Timestamp: Int64;
+    MidiEvent: TMidiEvent;
 
     procedure Clear;
-    procedure Init(MidiEvent: TMidiEvent);
+    procedure Init(MidiEvent_: TMidiEvent);
     function GetMidiEvent: TMidiEvent;
   end;
 
   TMidiInRingBuffer = class
   private
-    Critical: syncobjs.TCriticalSection;
+    critical: TCriticalSection;
     Head, Tail: word;
-    Buffer: array [0..1023] of TMidiInData;
-    OldTime: Int64;
+    Buffer: array [0..1023] of TMidiEvent;
   public
-    Header: TDetailHeader;
 
-    constructor Create(DetailHeader: TDetailHeader);
+    constructor Create;
     destructor Destroy; override;
     function Empty: boolean;
-    function Get(var rec: TMidiInData): boolean;
-    function Put(rec: TMidiInData): boolean;
+    function Get(var rec: TMidiEvent): boolean;
+    function Put(rec: TMidiEvent): boolean;
   end;
 
   TMidiEventRecorder = class
   private
-    count: integer;
+    critical: TCriticalSection;
+    EventCount: integer;
+  {$ifdef USE_NOW}
+    oldTime: TTime;
+  {$else}
+    oldTime: Int64;
+  {$endif}
   public
+    Header: TDetailHeader;
     MidiEvents: TMidiEventArray;
 
     constructor Create;
+    destructor Destroy; override;
     procedure Start;
     procedure Stop;
-    procedure Append(const MidiEvent: TMidiEvent);
-    function MakeRecordStream(Header: TDetailHeader): TMidiSaveStream;
+    procedure Append(MidiEvent: TMidiEvent);
+    function MakeRecordStream: TMidiSaveStream;
 
-    property Size: integer read count;
+    property Size: integer read EventCount;
   end;
 
 implementation
@@ -77,14 +82,12 @@ begin
 end;
 
 
-constructor TMidiInRingBuffer.Create(DetailHeader: TDetailHeader);
+constructor TMidiInRingBuffer.Create;
 begin
   Critical := TCriticalSection.Create;
   Head := 0;
   Tail := 0;
-  OldTime := 0;
   FillChar(Buffer, sizeof(Buffer), 0);
-  Header := DetailHeader;
 end;
 
 destructor TMidiInRingBuffer.Destroy;
@@ -97,7 +100,7 @@ begin
   result := Tail = Head;
 end;
 
-function TMidiInRingBuffer.Get(var rec: TMidiInData): boolean;
+function TMidiInRingBuffer.Get(var rec: TMidiEvent): boolean;
 begin
   result := false;
   Critical.Acquire;
@@ -113,26 +116,13 @@ begin
   end;
 end;
 
-function TMidiInRingBuffer.Put(rec: TMidiInData): boolean;
+function TMidiInRingBuffer.Put(rec: TMidiEvent): boolean;
 var
   oldHead: word;
-  delta: Int64;
-  Ticks: integer;
 begin
   result := false;
-
-  delta := GetTickCount64 - OldTime;  // in ms
-{  Ticks := Header.MsDelayToTicks(delta);
-  rec.var_len := Ticks;
-  delta := Round(Header.TicksToMs(Ticks));
- }
- Ticks := round((delta*192) / 500.0);  // 500 ms pro note
- rec.var_len := Ticks;
- Delta := round((Ticks*500) /192.0);
-
   Critical.Acquire;
   try
-    OldTime := OldTime + delta;
     oldHead := Head;
     Head := (Head + 1) mod Length(Buffer);
     if Empty then
@@ -150,59 +140,110 @@ end;
 procedure TMidiInData.Clear;
 begin
   DeviceIndex := 0;
-  var_len := 0;
   Timestamp := 0;
+  MidiEvent.Clear;
 end;
 
 function TMidiInData.GetMidiEvent: TMidiEvent;
 begin
-  result.command:= Status;
-  result.d1 := Data1;
-  result.d2 := Data2;
-  result.var_len := var_len;
-  SetLength(result.Bytes, 0);
+  result := MidiEvent;
 end;
 
-procedure TMidiInData.Init(MidiEvent: TMidiEvent);
+procedure TMidiInData.Init(MidiEvent_: TMidiEvent);
 begin
   Clear;
-  Status := MidiEvent.command;
-  Data1 := MidiEvent.d1;
-  Data2 := MidiEvent.d2;
+  MidiEvent := MidiEvent_;
 end;
 
 ////////////////////////////////////////////////////////////////////////////////
 
 constructor TMidiEventRecorder.Create;
 begin
-  count := 0;
+  Critical := TCriticalSection.Create;
+  EventCount := 0;
   SetLength(MidiEvents, 0);
+  Header.Clear;
 end;
 
-procedure TMidiEventRecorder.Append(const MidiEvent: TMidiEvent);
+destructor TMidiEventRecorder.Destroy;
 begin
-  if count >= Length(MidiEvents) then
-    SetLength(MidiEvents, 2*Length(MidiEvents)+1);
+  Critical.Free;
+end;
 
-  MidiEvents[count] := MidiEvent;
-  if MidiEvents[count].var_len > 1000000 then
-    MidiEvents[count].var_len := 0;
-  inc(count);
+procedure TMidiEventRecorder.Append(MidiEvent: TMidiEvent);
+const
+  msInDay = 24*3600000.0;
+var
+{$ifdef USE_NOW}
+  delta, Time: TDate;
+{$else}
+  delta: Int64;
+{$endif}
+  Ticks: integer;
+
+  function MsToTicks(MsDelay: double): integer;
+  begin
+    with Header do
+      result := trunc(MsDelay*TicksPerQuarter*QuarterPerMin / 60000.0);
+  end;
+
+begin
+  if MidiEvent.Event < 8 then
+    exit;
+
+  if EventCount >= Length(MidiEvents) then
+    SetLength(MidiEvents, 2*Length(MidiEvents)+1);
+{$ifdef USE_NOW}
+  time := now;
+  if EventCount = 1 then
+    OldTime := time;
+  delta := msInDay*(time - OldTime); // ms
+  if (delta > 1000000) then
+  begin
+    delta := 0;
+    OldTime := time;
+  end;
+  Ticks := MsToTicks(delta);
+  OldTime := OldTime + Header.TicksToMs(Ticks)/msInDay;
+  if EventCount > 1 then
+    MidiEvents[EventCount-1].var_len := Ticks;
+{$else}
+  delta := GetTickCount64 - OldTime;  // in ms
+  Ticks := Header.MsDelayToTicks(delta);
+  MidiEvent.var_len := Ticks;
+  delta := trunc(Header.TicksToMs(Ticks));
+  oldTime := oldTime + delta;
+{$endif}
+
+  Critical.Acquire;
+  try
+    MidiEvents[EventCount] := MidiEvent;
+    if MidiEvents[EventCount].var_len > 1000000 then
+      MidiEvents[EventCount].var_len := 0;
+    inc(EventCount);
+  finally
+    Critical.Release;
+  end;
 end;
 
 procedure TMidiEventRecorder.Start;
 begin
-  count := 1;
+{$ifdef USE_NOW}
+  OldTime := Now;
+{$else}
+  OldTime := 0;
+{$endif}
+  EventCount := 1;
   SetLength(MidiEvents, 10000);
   MidiEvents[0].Clear;
 end;
 
 procedure TMidiEventRecorder.Stop;
 begin
-  SetLength(MidiEvents, count);
+  SetLength(MidiEvents, EventCount);
 end;
 
-function TMidiEventRecorder.MakeRecordStream(Header: TDetailHeader): TMidiSaveStream;
+function TMidiEventRecorder.MakeRecordStream: TMidiSaveStream;
 var
   i, k, j: integer;
   iOn, iTakt, iPush: integer;
@@ -211,9 +252,6 @@ var
   Dirty: TSimpleDataStream;
 begin
   Stop;
-
-  if Length(MidiEvents) >= 2 then
-    MidiEvents[1].var_len := 0;
 
 {$ifdef DEBUG}
   Dirty := MakeDirtySimple(MidiEvents);
@@ -312,7 +350,7 @@ begin
     inc(Event.command);
   end;
 
-  for i := 0 to Length(MidiEvents)-1 do
+  for i := 1 to Length(MidiEvents)-1 do
     result.AppendEvent(MidiEvents[i]);
 
   result.AppendTrackEnd(true);
