@@ -3,7 +3,7 @@ unit CriticalSection;
 interface
 
 uses
-{$ifndef use_now}
+{$ifdef use_get32}
   SyncObjs,
 {$endif}
   Classes, SysUtils;

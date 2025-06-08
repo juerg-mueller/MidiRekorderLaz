@@ -8,35 +8,34 @@
 // sudo apt install librtmidi-dev
 // sudo apt install fluidsynth
 uses
-  {$ifdef unix}
+{$ifdef unix}
   cthreads,
   pthreads,
-  {$endif}
-  {$IFDEF HASAMIGA}
-  athreads,
-  {$ENDIF}
-  {$if not defined(mswindows) or defined(USE_RTMIDI)}
+{$endif}
+  UMidi,
+{$if not defined(mswindows) or defined(USE_RTMIDI)}
   rtmidi,
   urtmidi,
-  {$else}
+{$else}
   Midi in 'Midi.pas',
-  {$endif }
+{$endif}
   Forms,
-  {$ifdef FPC}
+{$ifdef FPC}
   lcl, Interfaces,
-  {$endif }
-  UMidirekorder in 'umidirekorder.pas' {MidiGriff},
+{$endif}
+  UMidirekorder in 'umidirekorder.pas' {MidiRecorder},
   UMidiEvent in 'UMidiEvent.pas',
   UMyMemoryStream in 'UMyMemoryStream.pas',
   UMyMidiStream in 'UMyMidiStream.pas',
   UMidiDataStream in 'UMidiDataStream.pas',
   UEventArray in 'UEventArray.pas',
-  UBanks, UMidi, UFormHelper, UMidiDataIn, CriticalSection;
+  UBanks, UMidiDataIn, CriticalSection;
 
 begin
 {$ifdef FPC}
   Application.Scaled:=True;
 {$endif}
+  Application.Scaled:=True;
   Application.Initialize;
   Application.CreateForm(TMidiRecorder, MidiRecorder);
   Application.Run;

@@ -38,7 +38,7 @@ type
   private
     critical: TCriticalSection;
     EventCount: integer;
-  {$ifdef USE_NOW}
+  {$ifndef USE_GET32}
     oldTime: TTime;
   {$else}
     oldTime: Int64;
@@ -103,6 +103,9 @@ end;
 function TMidiInRingBuffer.Get(var rec: TMidiEvent): boolean;
 begin
   result := false;
+  if self = nil then
+    exit;
+
   Critical.Acquire;
   try
     result := not Empty;
@@ -174,7 +177,7 @@ procedure TMidiEventRecorder.Append(MidiEvent: TMidiEvent);
 const
   msInDay = 24*3600000.0;
 var
-{$ifdef USE_NOW}
+{$ifndef USE_GET32}
   delta, Time: TDate;
 {$else}
   delta: Int64;
@@ -193,7 +196,7 @@ begin
 
   if EventCount >= Length(MidiEvents) then
     SetLength(MidiEvents, 2*Length(MidiEvents)+1);
-{$ifdef USE_NOW}
+{$ifndef USE_GET32}
   time := now;
   if EventCount = 1 then
     OldTime := time;
@@ -205,15 +208,13 @@ begin
   end;
   Ticks := MsToTicks(delta);
   OldTime := OldTime + Header.TicksToMs(Ticks)/msInDay;
-  if EventCount > 1 then
-    MidiEvents[EventCount-1].var_len := Ticks;
 {$else}
   delta := GetTickCount64 - OldTime;  // in ms
-  Ticks := Header.MsDelayToTicks(delta);
-  MidiEvent.var_len := Ticks;
-  delta := trunc(Header.TicksToMs(Ticks));
-  oldTime := oldTime + delta;
+  Ticks := MsToTicks(delta);
+  oldTime := oldTime + trunc(Header.TicksToMs(Ticks));
 {$endif}
+  if EventCount > 1 then
+    MidiEvents[EventCount-1].var_len := Ticks;
 
   Critical.Acquire;
   try
@@ -228,7 +229,7 @@ end;
 
 procedure TMidiEventRecorder.Start;
 begin
-{$ifdef USE_NOW}
+{$ifndef USE_GET32}
   OldTime := Now;
 {$else}
   OldTime := 0;

@@ -241,6 +241,7 @@ procedure TMidiRecorder.cbxDiskantBankChange(Sender: TObject);
     t := Copy(s, 1, Pos(' ', s)-1);
     result := StrToIntDef(t, 0);
   end;
+
 var
   i: integer;
   Bank: TArrayOfString;
@@ -255,14 +256,12 @@ begin
   MidiInstrDiskant := getInt(cbxMidiDiskant.Text);
   for i := 0 to 7 do
   begin
-//    OnMidiInData_($b0 + i, 0, MidiBankDiskant, 0);  // 0x32, LSB Bank);
-//    OnMidiInData_($c0 + i, MidiInstrDiskant, 0, 0);
+    SendMidi($b0 + i, 0, MidiBankDiskant);  // 0x32, LSB Bank);
+    SendMidi($c0 + i, MidiInstrDiskant, 0);
   end
 end;
 
 procedure TMidiRecorder.cbxMidiOutChange(Sender: TObject);
-var
-  OutputDevIndex: integer;
 begin
   if cbxMidiOut.ItemIndex >= 0 then
   begin
