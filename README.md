@@ -12,3 +12,9 @@ Installation von rtmidi unter MAC: brew install rtmidi
 Hinweise zur Insallation von Lazarus und zum Cross-Compiling findest du hier:  https://wiki.freepascal.org/fpcupdeluxe/de
 
 Volume- und Expression-Control werden nicht aufgenommen. Es sind die Midi-Events "$Bn $0B nn" und "$Bn $07 nn".
+
+
+MIDI Ausgabe-Format
+-------------------
+
+Es sind immer zwei Tracks. Alle Noten von sämtlichen Kanälen sind im zweiten Track. Die Ersten sieben Kanäle werden mit dem Akkordeon als Instrument belegt.
