@@ -17,6 +17,6 @@ Volume- und Expression-Control werden nicht aufgenommen. Es sind die Midi-Events
 MIDI Ausgabe-Format
 -------------------
 
-Es sind immer zwei Tracks. Alle Noten von sämtlichen Kanälen sind im zweiten Track. Die Ersten acht Kanäle werden mit dem Akkordeon als Instrument belegt. In meinem eigenen, Text basierten MIDI-File, sieht das etwa so aus:
+Es sind immer zwei Tracks. Alle Noten von sämtlichen Kanälen sind im zweiten Track. Die ersten acht Kanäle werden mit dem Akkordeon als Instrument belegt. In meinem eigenen, Text basierten MIDI-File, sieht das etwa so aus:
 
 ![midi-txt](https://github.com/user-attachments/assets/8a29306b-fbb4-488e-a9ea-b344a67f12e7)
