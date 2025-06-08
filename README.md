@@ -1,9 +1,9 @@
 Allgemeiner MIDI-Rekorder mit Metronom
 ======================================
 
-Der MIDI-Rekorder ist mit Delphi und Lazarus kompilierbar. 
+Der MIDI-Rekorder kann mit Delphi oder Lazarus kompiliert werden: Mit Delphi nur für Windows, mit Lazarus zusätzlich für Linux und MAC. 
 
-Der MIDI-Rkorder kann für Linux und für den MAC generiert werden. Dazu ist für die MIDI-Schnittstelle jeweils eine Dynamische Library notwendig (https://github.com/thestk/rtmidi).
+Für MAC Linux braucht es für die MIDI-Schnittstelle jeweils eine Dynamische Library (https://github.com/thestk/rtmidi).
 
 Installation von rtmidi unter Linux: sudo apt install librtmidi-dev
 
