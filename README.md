@@ -13,6 +13,9 @@ Hinweise zur Insallation von Lazarus und zum Cross-Compiling findest du hier:  h
 
 Volume- und Expression-Control werden nicht aufgenommen. Es sind die Midi-Events "$Bn $0B nn" und "$Bn $07 nn".
 
+MidiRecorder-aarch64 ist für das MACOS mit M1 Prozessor
+--------------------
+
 
 MIDI Ausgabe-Format
 -------------------
